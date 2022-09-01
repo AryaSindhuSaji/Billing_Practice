@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
+  <test thread-count="5" name="Default test(failed)">
+    <classes>
+      <class name="BillingTestCases.TestCases">
+        <methods>
+          <include name="TC17BillingAddExpense"/>
+          <include name="TC18BillingAddExpenseCategories"/>
+          <include name="BrowserInvoke"/>
+          <include name="TC23BillingAddPurchase"/>
+          <include name="TC03BillingLoginValidAndCheckBox"/>
+          <include name="TC09BillingContactAddCustomer"/>
+          <include name="TC05BillingAddRole"/>
+          <include name="TC13BillingDeleteVariations"/>
+          <include name="TC19BillingAccountCreation"/>
+          <include name="TC15BillingAddBrand"/>
+          <include name="TC10BillingContactAddCustomerGroup"/>
+          <include name="TC02BillingLogininvalid"/>
+          <include name="TC16BillingAddStockAdjustment"/>
+          <include name="TC20BillingCalculator"/>
+          <include name="TC21BillingAddOpeningStock"/>
+          <include name="TC14BillingAddSellingPriceGroup"/>
+          <include name="TC12BillingAddVariations"/>
+          <include name="TC11BillingAddProduct"/>
+          <include name="TC07BillingContactAddSupplier"/>
+          <include name="TC06BillingDeleteRole"/>
+          <include name="TC08BillingEditAddedSupplierEmail"/>
+          <include name="TC04BillingAddUser"/>
+          <include name="TC22BillingAddSalesCommissionAgent"/>
+          <include name="TC01BillingLoginValid"/>
+        </methods>
+      </class> <!-- BillingTestCases.TestCases -->
+    </classes>
+  </test> <!-- Default test(failed) -->
+</suite> <!-- Failed suite [Default suite] -->
