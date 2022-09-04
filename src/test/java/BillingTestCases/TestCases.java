@@ -9,6 +9,7 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.devtools.v101.page.Page;
+import org.openqa.selenium.support.ui.Wait;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -21,14 +22,18 @@ import Pages.DeleteRolePage;
 import Pages.ExpensePage;
 import Pages.HomePageAddUser;
 import Pages.LoginPage;
-import Pages.PaymentsAccountPage;
 import Pages.ProductPage;
+import Pages.SettingsPage;
 import Pages.StockTransferPage;
 import Pages.addVariationsPage;
 import Pages.contactAddCustomerGroup;
 import Pages.customerContactAddPage;
+import Pages.paymentAccountsPage;
+import Pages.purchasePage;
+import Pages.salesCommissionAgentPage;
+import Pages.sellPage;
 import Pages.supplierContactAddPage;
-import Utility.CalculatorPage;
+import Pages.CalculatorPage;
 import Utility.PageUtility;
 import Utility.WaitUtility;
 
@@ -47,9 +52,13 @@ public class TestCases extends BaseClass{
 	addVariationsPage variations;
 	StockTransferPage stock;
 	ExpensePage expense;
-	PaymentsAccountPage payments;
+	paymentAccountsPage payments;
 	CalculatorPage calc;
 	DeleteRolePage deleterole;
+	salesCommissionAgentPage salescommission;
+	purchasePage purchase;
+	sellPage sell;
+	SettingsPage settings;
 	@BeforeMethod
 	@Parameters("Browser")
 	public void BrowserInvoke(String Browser) throws IOException
@@ -70,9 +79,13 @@ public class TestCases extends BaseClass{
 		variations=new addVariationsPage(driver);
 		stock=new StockTransferPage(driver);
 		expense=new ExpensePage(driver);
-		payments=new PaymentsAccountPage(driver);
+		payments=new paymentAccountsPage(driver);
 		calc=new CalculatorPage(driver);
 		deleterole=new DeleteRolePage(driver);
+		salescommission=new salesCommissionAgentPage(driver);
+		purchase=new purchasePage(driver);
+		sell=new sellPage(driver);
+		settings=new SettingsPage(driver);
 	}
 	@Test
 	public void TC01BillingLoginValid()
@@ -401,14 +414,27 @@ public class TestCases extends BaseClass{
 		String NewCategoryCode=RandomNameCreation("CategoryCode");
 		PageUtility.enterText(expense.expenseCatCodeField(), NewCategoryCode);
 		PageUtility.clickOnElement(expense.expenseSaveBtn());
-		
-		
+		PageUtility.navigateToRefresh(driver);
+		PageUtility.enterText(expense.expenseCategorySearchField(), NewCategoryName);
+		String actualexpensecategory=PageUtility.getElementText(expense.expenseCatogerySelectedToSearch());
+		Assert.assertEquals(actualexpensecategory, NewCategoryCode);		
 	}
 	@Test
 	public void TC19BillingAccountCreation()
 	{
 		login.LoginMethod(prop.getProperty("username"), prop.getProperty("password"));
-		
+		PageUtility.clickOnElement(payments.paymentAccountOptionClick());
+		PageUtility.clickOnElement(payments.listAccountOptionClick());
+		PageUtility.clickOnElement(payments.addNewAccountBtnClick());
+		PageUtility.enterText(payments.nameAccountField(), prop.getProperty("PaymentName"));
+		String NewAccountNumber=RandomNameCreation("ACCnum");
+		PageUtility.enterText(payments.accountNumberField(), NewAccountNumber);
+		PageUtility.enterText(payments.openingBalanceField(), prop.getProperty("OpeningBalance"));
+		PageUtility.clickOnElement(payments.newAccountSaveButtonClick());
+		PageUtility.navigateToRefresh(driver);
+		PageUtility.enterText(payments.accountSearchField(), NewAccountNumber);
+		String actualnewaccnum=PageUtility.getElementText(payments.selectedAccount());
+		Assert.assertEquals(actualnewaccnum, NewAccountNumber);	
 	}
 	@Test
 	public void TC20BillingCalculator()
@@ -422,25 +448,129 @@ public class TestCases extends BaseClass{
 		String text=calc.resultField().getAttribute("value");
 		Assert.assertEquals(text,prop.getProperty("CalculationResult"));
 	}
+	//pending 2000 Box Value fetched
 	@Test
 	public void TC21BillingAddOpeningStock()
 	{
 		login.LoginMethod(prop.getProperty("username"), prop.getProperty("password"));
 		product.ProductOptionClick();
-		PageUtility.enterText(product.productSearchFieldSelect(), prop.getProperty("ProductName"));
+		PageUtility.clickOnElement(product.listProduct());
+		/*product.AddProductOption();
+		String NewProductName=RandomNameCreation("ProductName");
+		PageUtility.enterText(product.ProductNameField(),NewProductName);
+		PageUtility.selectDropdownbyText(product.brandNameSelectTag(), "VKC");
+		PageUtility.selectDropdownbyText(product.unitSelectTag(),"Box");
+		PageUtility.enterText(product.AlertQuantityTextField(), prop.getProperty("AlertQuantity"));
+		PageUtility.enterText(product.EXCTaxField(), prop.getProperty("ExcTaxValue"));
+		product.ProductSaveBtn();
+		PageUtility.navigateToRefresh(driver);
+		PageUtility.enterText(product.productSearchFieldSelect(), NewProductName);
+		PageUtility.clickOnElement(product.actionBtnClickOnProduct());
+		PageUtility.clickOnElement(product.openingStockOptionClick());
+		PageUtility.enterText(product.quantityField(),prop.getProperty("OpeningStockQuantilty") );
+		PageUtility.clickOnElement(product.openingStockSaveBtnClick());*/
+		//System.out.print("product:"+ProductName8149);
+		PageUtility.enterText(product.productSearchFieldSelect(), "ProductName8149");
+		//String actualnewproductquantity=PageUtility.getElementText(product.newlyAddedOpeningStock());
+		
+		System.out.print("productquantilty:"+PageUtility.getElementText(product.newlyAddedOpeningStock()));
+		
+		//Assert.assertEquals(actualnewproductquantity, prop.getProperty("OpeningStockQuantilty"));
+		
+		
 		
 		
 	}
 	@Test
 	public void TC22BillingAddSalesCommissionAgent()
 	{
-		
+		login.LoginMethod(prop.getProperty("username"), prop.getProperty("password"));
+		home.UserManagementDropdown();
+		PageUtility.clickOnElement(salescommission.salesCommissionAgentOptionClick());
+		PageUtility.clickOnElement(salescommission.salesCommissionAddbtnClick());
+		String NewAgentName=RandomNameCreation("AgentName");
+		PageUtility.enterText(salescommission.salesAgentFirstname(),NewAgentName);
+		PageUtility.enterText(salescommission.salesAgentEmail(), prop.getProperty("AgentEmail"));
+		PageUtility.enterText(salescommission.salesAgentContactnumber(), prop.getProperty("Agentcontact"));
+		PageUtility.enterText(salescommission.salesAgentCommisiionField(), prop.getProperty("Agentcommission"));
+		PageUtility.clickOnElement(salescommission.salesAgentCommissionSaveBtnClick());
+		PageUtility.navigateToRefresh(driver);
+		PageUtility.enterText(salescommission.salesCommissionAgentSearchField(), NewAgentName);
+		Assert.assertEquals(PageUtility.getElementText(salescommission.selectedSalesCommissionAgent()), NewAgentName);
+
 	}
+	//not able to add reference number
 	@Test
 	public void TC23BillingAddPurchase()
 	{
+		login.LoginMethod(prop.getProperty("username"), prop.getProperty("password"));
+		PageUtility.clickOnElement(purchase.purchaseOptionClick());
+		PageUtility.clickOnElement(purchase.addPurchaseOption());
+		PageUtility.clickOnElement(purchase.addSupplier());
+		String NewSuppliername=RandomNameCreation("NewSupplier");
+		PageUtility.enterText(suppliercontact.SupplierNameField(),NewSuppliername);
+		PageUtility.enterText(suppliercontact.SupplierBusinessNameField(), prop.getProperty("SupplierBusinessName"));
+		String NewSupplierContactid=RandomNameCreation("NewSupplierContactid");
+		PageUtility.enterText(suppliercontact.SupplierContactIdField(),NewSupplierContactid);
+		PageUtility.enterText(suppliercontact.SupplierMobileField(), prop.getProperty("SupplierMobilenumber"));
+		suppliercontact.SupplierSaveBtn();
+		WaitUtility.waitForElementToBeVisible(driver,purchase.selectSupplier());
+		PageUtility.enterText(purchase.referenceNumberField(), "1234456");
+		PageUtility.selectDropdownByValue(purchase.purchaseSatatusSelect(), "received");
+		PageUtility.selectDropdownbyText(purchase.businessLocatioSelect(), "DeMoCompany2 (121312)");
+		PageUtility.clickOnElement(purchase.productAddBtn());
+		WaitUtility.waitForElementToBeVisible(driver, purchase.productaddTextField());
+		String NewProductName=RandomNameCreation("ProductName");
+		PageUtility.enterText(product.ProductNameField(),NewProductName);
+		PageUtility.selectDropdownbyText(product.brandNameSelectTag(), "VKC");
+		PageUtility.selectDropdownbyText(product.unitSelectTag(),"Box");
+		PageUtility.enterText(product.AlertQuantityTextField(), prop.getProperty("AlertQuantity"));
+		PageUtility.enterText(product.EXCTaxField(), prop.getProperty("ExcTaxValue"));
+		PageUtility.clickOnElement(purchase.quickAddedProductSaveBtn());
+		PageUtility.clearText(purchase.amountPurchase());
+		PageUtility.enterText(purchase.amountPurchase(), prop.getProperty("AmountForPurchase"));
+		PageUtility.selectDropdownByValue(purchase.payemtMethodSelection(), "cash");
+		PageUtility.clickOnElement(purchase.purchaseSaveBtn());
 		
 	}
+	
+	//not able to set date
+	@Test
+	public void TC24BillingAddDiscount()
+	{
+		login.LoginMethod(prop.getProperty("username"), prop.getProperty("password"));
+		PageUtility.clickOnElement(sell.sellOptionClick());
+		PageUtility.clickOnElement(sell.discountOption());
+		PageUtility.clickOnElement(sell.discountAddBtn());
+		String NewDiscountName=RandomNameCreation("DiscountName");
+		PageUtility.enterText(sell.discountNameField(),NewDiscountName);
+		PageUtility.selectDropdownByValue(sell.discountBrandField(), "93");
+		PageUtility.selectDropdownByValue(sell.discountCategoryField(), "205");
+		PageUtility.selectDropdownByValue(sell.discountLocationSelectField(), "3");
+		PageUtility.selectDropdownByValue(sell.discountTypeFieldSelect(), "fixed");
+		PageUtility.enterText(sell.discountAmountField(), prop.getProperty("DiscountAmount"));
+		PageUtility.clickOnElement(sell.discountStartAtField());
+		
+		PageUtility.clickOnElement(sell.discountSaveBtnClick());
+	}
+	//Assert check
+	@Test
+	public void TC25BillingAddTaxRates()
+	{
+		login.LoginMethod(prop.getProperty("username"), prop.getProperty("password"));
+		PageUtility.clickOnElement(settings.settingsOptionClick());
+		PageUtility.clickOnElement(settings.taxRatesOptionClick());
+		PageUtility.clickOnElement(settings.taxRatesAddBtn());
+		String NewTaxName=RandomNameCreation("TaxName");
+		PageUtility.enterText(settings.taxNameField(),NewTaxName);
+		PageUtility.enterText(settings.taxAmountField(), prop.getProperty("TaxAmount"));
+		PageUtility.clickOnElement(settings.taxRateSaveBtnClick());
+		PageUtility.navigateToRefresh(driver);
+		PageUtility.enterText(settings.taxRatesSearchField(), NewTaxName);
+		Assert.assertEquals(PageUtility.getElementText(settings.selectedTax()), NewTaxName);
+		
+	}
+	
 	
 	
 	

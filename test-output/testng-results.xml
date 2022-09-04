@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results ignored="22" total="23" passed="0" failed="1" skipped="0">
+<testng-results ignored="24" total="25" passed="0" failed="1" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2022-09-01T08:40:43 IST" name="Suite" finished-at="2022-09-01T08:40:50 IST" duration-ms="6942">
+  <suite started-at="2022-09-04T17:18:36 IST" name="Suite" finished-at="2022-09-04T17:19:05 IST" duration-ms="29348">
     <groups>
     </groups>
-    <test started-at="2022-09-01T08:40:43 IST" name="Test" finished-at="2022-09-01T08:40:50 IST" duration-ms="6942">
+    <test started-at="2022-09-04T17:18:36 IST" name="Test" finished-at="2022-09-04T17:19:05 IST" duration-ms="29348">
       <class name="BillingTestCases.TestCases">
-        <test-method is-config="true" signature="BrowserInvoke(java.lang.String)[pri:0, instance:BillingTestCases.TestCases@7b36aa0c]" started-at="2022-09-01T08:40:43 IST" name="BrowserInvoke" finished-at="2022-09-01T08:40:50 IST" duration-ms="6851" status="PASS">
+        <test-method is-config="true" signature="BrowserInvoke(java.lang.String)[pri:0, instance:BillingTestCases.TestCases@6e01f9b0]" started-at="2022-09-04T17:18:36 IST" name="BrowserInvoke" finished-at="2022-09-04T17:18:47 IST" duration-ms="11411" status="PASS">
           <params>
             <param index="0">
               <value>
@@ -18,51 +18,20 @@
           <reporter-output>
           </reporter-output>
         </test-method> <!-- BrowserInvoke -->
-        <test-method signature="TC01BillingLoginValid()[pri:0, instance:BillingTestCases.TestCases@7b36aa0c]" started-at="2022-09-01T08:40:50 IST" name="TC01BillingLoginValid" finished-at="2022-09-01T08:40:50 IST" duration-ms="26" status="FAIL">
-          <exception class="org.openqa.selenium.NoSuchWindowException">
+        <test-method signature="TC25BillingAddTaxRates()[pri:0, instance:BillingTestCases.TestCases@6e01f9b0]" started-at="2022-09-04T17:18:47 IST" name="TC25BillingAddTaxRates" finished-at="2022-09-04T17:19:05 IST" duration-ms="17666" status="FAIL">
+          <exception class="java.lang.AssertionError">
             <message>
-              <![CDATA[no such window: target window already closed
-from unknown error: web view not found
-  (Session info: chrome=104.0.5112.102)
-Build info: version: '4.3.0', revision: 'a4995e2c09*'
-System info: host: 'LAPTOP-9MMV66BJ', ip: '192.168.56.1', os.name: 'Windows 11', os.arch: 'amd64', os.version: '10.0', java.version: '17.0.3'
-Driver info: org.openqa.selenium.chrome.ChromeDriver
-Command: [0e25de018dd7646d2c52034639ef282f, findElement {using=id, value=username}]
-Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 104.0.5112.102, chrome: {chromedriverVersion: 103.0.5060.134 (8ec6fce403b..., userDataDir: C:\Users\asus\AppData\Local...}, goog:chromeOptions: {debuggerAddress: localhost:27523}, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: WINDOWS, proxy: Proxy(), se:cdp: ws://localhost:27523/devtoo..., se:cdpVersion: 104.0.5112.102, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
-Session ID: 0e25de018dd7646d2c52034639ef282f]]>
+              <![CDATA[expected [TaxName6808] but found [GST@18%]]]>
             </message>
             <full-stacktrace>
-              <![CDATA[org.openqa.selenium.NoSuchWindowException: no such window: target window already closed
-from unknown error: web view not found
-  (Session info: chrome=104.0.5112.102)
-Build info: version: '4.3.0', revision: 'a4995e2c09*'
-System info: host: 'LAPTOP-9MMV66BJ', ip: '192.168.56.1', os.name: 'Windows 11', os.arch: 'amd64', os.version: '10.0', java.version: '17.0.3'
-Driver info: org.openqa.selenium.chrome.ChromeDriver
-Command: [0e25de018dd7646d2c52034639ef282f, findElement {using=id, value=username}]
-Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 104.0.5112.102, chrome: {chromedriverVersion: 103.0.5060.134 (8ec6fce403b..., userDataDir: C:\Users\asus\AppData\Local...}, goog:chromeOptions: {debuggerAddress: localhost:27523}, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: WINDOWS, proxy: Proxy(), se:cdp: ws://localhost:27523/devtoo..., se:cdpVersion: 104.0.5112.102, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
-Session ID: 0e25de018dd7646d2c52034639ef282f
-at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
-at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:77)
-at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
-at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:499)
-at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:480)
-at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.createException(W3CHttpResponseCodec.java:200)
-at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:133)
-at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:53)
-at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:184)
-at org.openqa.selenium.remote.service.DriverCommandExecutor.invokeExecute(DriverCommandExecutor.java:167)
-at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:142)
-at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:569)
-at org.openqa.selenium.remote.ElementLocation$ElementFinder$2.findElement(ElementLocation.java:162)
-at org.openqa.selenium.remote.ElementLocation.findElement(ElementLocation.java:66)
-at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:387)
-at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:379)
-at org.openqa.selenium.support.pagefactory.DefaultElementLocator.findElement(DefaultElementLocator.java:70)
-at org.openqa.selenium.support.pagefactory.internal.LocatingElementHandler.invoke(LocatingElementHandler.java:39)
-at jdk.proxy2/jdk.proxy2.$Proxy16.sendKeys(Unknown Source)
-at Utility.PageUtility.enterText(PageUtility.java:28)
-at Pages.LoginPage.LoginMethod(LoginPage.java:39)
-at BillingTestCases.TestCases.TC01BillingLoginValid(TestCases.java:80)
+              <![CDATA[java.lang.AssertionError: expected [TaxName6808] but found [GST@18%]
+at org.testng.Assert.fail(Assert.java:110)
+at org.testng.Assert.failNotEquals(Assert.java:1413)
+at org.testng.Assert.assertEqualsImpl(Assert.java:149)
+at org.testng.Assert.assertEquals(Assert.java:131)
+at org.testng.Assert.assertEquals(Assert.java:655)
+at org.testng.Assert.assertEquals(Assert.java:665)
+at BillingTestCases.TestCases.TC25BillingAddTaxRates(TestCases.java:570)
 at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
 at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -93,10 +62,10 @@ at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:251)
 at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:77)
 ]]>
             </full-stacktrace>
-          </exception> <!-- org.openqa.selenium.NoSuchWindowException -->
+          </exception> <!-- java.lang.AssertionError -->
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- TC01BillingLoginValid -->
+        </test-method> <!-- TC25BillingAddTaxRates -->
       </class> <!-- BillingTestCases.TestCases -->
     </test> <!-- Test -->
   </suite> <!-- Suite -->

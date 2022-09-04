@@ -5,6 +5,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import Utility.PageUtility;
+
 public class ProductPage {
 
 	WebDriver driver;
@@ -28,6 +30,18 @@ public class ProductPage {
 	WebElement productsearchfield;
 	@FindBy(xpath="//td[@class='sorting_1']")
 	WebElement selectedproduct;
+	@FindBy(xpath="//button[@class='btn btn-info dropdown-toggle btn-xs']")
+	WebElement actionbtnonproduct;
+	@FindBy(xpath="//a[@class='add-opening-stock']")
+	WebElement stockopeningoption;
+	@FindBy(xpath="(//input[@class='form-control input-sm input_number purchase_quantity input_quantity'])[1]")
+	WebElement quantityfield;
+	@FindBy(id="add_opening_stock_btn")
+	WebElement openingstocksavebtn;
+	@FindBy(xpath="(//td[@class='sorting_1']//following::td)[2]")
+	WebElement selectedproductquantity;
+	@FindBy(xpath="//a[@href='https://qalegend.com/billing/public/products']")
+	WebElement listproduct;
 	
 	
 	@FindBy(xpath="(//i[@class='fa fa-circle-o'])[2]")
@@ -107,6 +121,32 @@ public class ProductPage {
 	public WebElement selectedProductGet()
 	{
 		return selectedproduct;
+	}
+	
+	public WebElement actionBtnClickOnProduct()
+	{
+		return actionbtnonproduct;
+	}
+	public WebElement openingStockOptionClick()
+	{
+		return stockopeningoption;
+	}
+	public WebElement quantityField()
+	{
+		quantityfield.clear();
+		return quantityfield;
+	}
+	public WebElement openingStockSaveBtnClick()
+	{
+		return openingstocksavebtn;
+	}
+	public WebElement newlyAddedOpeningStock()
+	{
+		return selectedproductquantity;
+	}
+	public WebElement listProduct()
+	{
+		return listproduct;
 	}
 	
 	

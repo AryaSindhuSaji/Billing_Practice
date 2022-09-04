@@ -1,5 +1,6 @@
 package AutomationCore;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -7,10 +8,14 @@ import java.util.Properties;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+
+import com.google.common.io.Files;
 
 import Utility.PageUtility;
 
@@ -49,6 +54,14 @@ public class BaseClass {
 		int num = random.nextInt(10000);
 		String newname = randomname+num;
 		return newname;
+		}
+		public String getScreenshotPath(String testcasename, WebDriver driver) throws IOException
+		{
+			TakesScreenshot ts=(TakesScreenshot)driver;
+			File source=ts.getScreenshotAs(OutputType.FILE);
+			String destinationfile=System.getProperty("user.dir")+"\\test-output\\"+testcasename+".png";
+			Files.copy(source,new File(destinationfile));
+			return destinationfile;
 		}
 		
 	

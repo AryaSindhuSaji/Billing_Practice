@@ -38,7 +38,10 @@ public class ExpensePage {
 	WebElement expensecode;
 	@FindBy(xpath="//button[@type='submit']")
 	WebElement newexpensesavebtn;
-
+	@FindBy(xpath="//input[@class='form-control input-sm']")
+	WebElement expensecatsearch;
+	@FindBy(xpath="(//td[@class='sorting_1']//following::td)[1]")
+	WebElement selectedexpensecat;
 	
 	public ExpensePage(WebDriver driver) {
 
@@ -111,6 +114,14 @@ public class ExpensePage {
 	{
 		
 		return newexpensesavebtn;
+	}
+	public WebElement expenseCategorySearchField()
+	{
+		return expensecatsearch;
+	}
+	public WebElement expenseCatogerySelectedToSearch()
+	{
+		return selectedexpensecat;
 	}
 	
 }
