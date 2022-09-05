@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.Properties;
 import java.util.Random;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -570,7 +571,92 @@ public class TestCases extends BaseClass{
 		Assert.assertEquals(PageUtility.getElementText(settings.selectedTax()), NewTaxName);
 		
 	}
+	@Test 
+	public void TC26BillingAddReceiptPrinter()
+	{
+		login.LoginMethod(prop.getProperty("username"), prop.getProperty("password"));
+		PageUtility.clickOnElement(settings.settingsOptionClick());
+		PageUtility.clickOnElement(settings.receiptPrinterOptionClick());
+		PageUtility.clickOnElement(settings.addPrinterBtnClick());
+		String NewPrinterName=RandomNameCreation("PrinterName");
+		PageUtility.enterText(settings.printerNameField(), NewPrinterName);
+		PageUtility.selectDropdownByValue(settings.networkTypeSelect(), "windows");
+		PageUtility.selectDropdownByValue(settings.capabilityProfileSelect(),"simple");
+		PageUtility.enterText(settings.charactersPerLineField(), prop.getProperty("CharactersPerLine"));
+		PageUtility.enterText(settings.printerPathField(),prop.getProperty("PrinterPath"));
+		PageUtility.clickOnElement(settings.printerSaveBtn());
+		PageUtility.enterText(settings.newPrinterSearchField(), NewPrinterName);
+		Assert.assertEquals(PageUtility.getElementText(settings.selectedPrinter()), NewPrinterName);
+		
+	}
+	//search one get different
+	@Test
+	public void TC27BillingAddInvoiceSettings() throws InterruptedException
+	{
+		login.LoginMethod(prop.getProperty("username"), prop.getProperty("password"));
+		PageUtility.clickOnElement(settings.settingsOptionClick());
+		PageUtility.clickOnElement(settings.invoiceSettingOptionClick());
+		PageUtility.clickOnElement(settings.invoiceAddBtnClick());
+		PageUtility.clickOnElement(settings.invoiceFormatSelection());
+		String NewInvoiceName=RandomNameCreation("InvoiceName");
+		PageUtility.enterText(settings.invoiceNameField(),NewInvoiceName);
+		PageUtility.enterText(settings.invoiceStartsFrom(), prop.getProperty("InvoiceStartFrom"));
+		PageUtility.clickOnElement(settings.InvoiceSaveBtnClick());
+		//Thread.sleep(2000);
+		WaitUtility.waitForElementToBeVisible(driver, settings.InvoiceSettingsHeading());
+		PageUtility.enterText(settings.invoiceSearchField(), NewInvoiceName);
+		Assert.assertEquals(PageUtility.getElementText(settings.selctedInvoice()), NewInvoiceName);
+		
+	}
+	//not found expected result
+	@Test
+	public void TC28BillingAddBusinessLocation() throws InterruptedException
+	{
+		login.LoginMethod(prop.getProperty("username"), prop.getProperty("password"));
+		PageUtility.clickOnElement(settings.settingsOptionClick());
+		PageUtility.clickOnElement(settings.bussinessLocationOptionClick());
+		PageUtility.clickOnElement(settings.bussinessLocationAddBtn());
+		String NewLocation=RandomNameCreation("DemoLocation");
+		PageUtility.enterText(settings.printerNameField(), NewLocation);
+		String NewLocationid=RandomNameCreation("DemoLocationID");
+		PageUtility.enterText(settings.LocationIdField(),NewLocationid);
+		PageUtility.enterText(settings.locatrionLandMarkField(), prop.getProperty("LocationLandMark"));
+		PageUtility.enterText(settings.locationCityField(), prop.getProperty("LocationCity"));
+		PageUtility.enterText(settings.locationZipCodeField(), prop.getProperty("LocationZipCode"));
+		PageUtility.enterText(settings.locationStateField(), prop.getProperty("LocationState"));
+		PageUtility.enterText(settings.locationCountryField(), prop.getProperty("LocationCountry"));
+		PageUtility.enterText(settings.locationMobileField(), prop.getProperty("LocationMobileNumber"));
+		PageUtility.selectDropdownByValue(settings.invoiceSchemeSelect(), "8");
+		PageUtility.selectDropdownByValue(settings.invoiceLayoutSelect(), "1");
+		PageUtility.clickOnElement(settings.locationSaveBtn());
+		Thread.sleep(2000);
+		//WaitUtility.waitForElementToBeVisible(driver, settings.locationHomePageForWait());
+		PageUtility.enterText(settings.locationSearchField(), NewLocation);
+		Assert.assertEquals(PageUtility.getElementText(settings.locationSelectedToSearch()), NewLocation);
+	}
+	@Test
+	public void TC29BillingDeleteBusinessLocation()
+	{
+		login.LoginMethod(prop.getProperty("username"), prop.getProperty("password"));
+		PageUtility.clickOnElement(settings.settingsOptionClick());
+	}
 	
+	
+	@Test
+	public void TC30BillingPurchaseDelete()
+	{
+		
+	}
+	@Test
+	public void TC07() throws InterruptedException, IOException
+	{
+		driver.navigate().to("https://smallpdf.com/word-to-pdf");
+		driver.findElement(By.xpath("//span[text()='Choose Files']")).click();
+		Thread.sleep(3000);
+		Runtime.getRuntime().exec("D:\\Automation\\Eclipse Workspace\\fileupload.exe");
+	}
+	
+
 	
 	
 	

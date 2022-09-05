@@ -9,8 +9,8 @@
     <classes>
       <class name="BillingTestCases.TestCases">
         <methods>
+          <include name="TC07"/>
           <include name="BrowserInvoke"/>
-          <include name="TC25BillingAddTaxRates"/>
         </methods>
       </class> <!-- BillingTestCases.TestCases -->
     </classes>

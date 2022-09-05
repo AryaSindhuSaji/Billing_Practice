@@ -56,7 +56,7 @@
           </li>
             <li class="m-r-10">
                 <a href="#">
-                    <span class="badge badge-primary">Sep 4, 2022 05:18:36 pm</span>
+                    <span class="badge badge-primary">Sep 5, 2022 06:21:18 am</span>
                 </a>
             </li>
         </ul>
@@ -131,19 +131,19 @@
 					</div>
 					<div class="open-test">
 						<div class="test-detail">
-							<p class="name">TC25BillingAddTaxRates</p>
-							<p class="duration text-sm">0h 0m 17s+889ms</p>
-							<span class="datetime">17:18:47 pm</span>
+							<p class="name">TC07</p>
+							<p class="duration text-sm">0h 0m 4s+250ms</p>
+							<span class="datetime">06:21:32 am</span>
 						</div>
 					</div>
 					<div class="test-contents d-none">
 						<div class="detail-head">
 							<div class="p-v-10 d-inline-block">
 								<div class="info">
-									<h5 class="test-status text-fail">TC25BillingAddTaxRates</h5>
-									<span class='badge badge-success'>09.04.2022 17:18:47</span>
-									<span class='badge badge-danger'>09.04.2022 17:19:05</span>
-									<span class='badge badge-default'>0h 0m 17s+889ms</span>
+									<h5 class="test-status text-fail">TC07</h5>
+									<span class='badge badge-success'>09.05.2022 06:21:32</span>
+									<span class='badge badge-danger'>09.05.2022 06:21:36</span>
+									<span class='badge badge-default'>0h 0m 4s+250ms</span>
 								</div>
 								<div class="m-t-10 m-l-5">
 									
@@ -160,16 +160,32 @@
 	<tbody>
 			<tr class="event-row">
 				<td><i class="fa fa-times text-fail"></i></td>
-				<td>5:19:05 pm</td>
+				<td>6:21:36 am</td>
 				<td>
-						<textarea disabled class="code-block">java.lang.AssertionError: expected [TaxName6808] but found [GST@18%]
-	at org.testng.Assert.fail(Assert.java:110)
-	at org.testng.Assert.failNotEquals(Assert.java:1413)
-	at org.testng.Assert.assertEqualsImpl(Assert.java:149)
-	at org.testng.Assert.assertEquals(Assert.java:131)
-	at org.testng.Assert.assertEquals(Assert.java:655)
-	at org.testng.Assert.assertEquals(Assert.java:665)
-	at BillingTestCases.TestCases.TC25BillingAddTaxRates(TestCases.java:570)
+						<textarea disabled class="code-block">org.openqa.selenium.ElementClickInterceptedException: element click intercepted: Element <span class="sc-1tuk0d4-5 lhzxxm">...</span> is not clickable at point (913, 420). Other element would receive the click: <span>...</span>
+  (Session info: chrome=104.0.5112.102)
+Build info: version: '4.3.0', revision: 'a4995e2c09*'
+System info: host: 'LAPTOP-9MMV66BJ', ip: '192.168.56.1', os.name: 'Windows 11', os.arch: 'amd64', os.version: '10.0', java.version: '17.0.3'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Command: [d6f948665842ca54a413865ecd02a2d6, clickElement {id=ac40cda8-bf6e-4934-a743-bba2e7589bfb}]
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 104.0.5112.102, chrome: {chromedriverVersion: 103.0.5060.134 (8ec6fce403b..., userDataDir: C:\Users\asus\AppData\Local...}, goog:chromeOptions: {debuggerAddress: localhost:1346}, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: WINDOWS, proxy: Proxy(), se:cdp: ws://localhost:1346/devtool..., se:cdpVersion: 104.0.5112.102, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:virtualAuthenticators: true}
+Element: [[ChromeDriver: chrome on WINDOWS (d6f948665842ca54a413865ecd02a2d6)] -> xpath: //span[text()='Choose Files']]
+Session ID: d6f948665842ca54a413865ecd02a2d6
+	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:499)
+	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:480)
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.createException(W3CHttpResponseCodec.java:200)
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:133)
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:53)
+	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:184)
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.invokeExecute(DriverCommandExecutor.java:167)
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:142)
+	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:569)
+	at org.openqa.selenium.remote.RemoteWebElement.execute(RemoteWebElement.java:257)
+	at org.openqa.selenium.remote.RemoteWebElement.click(RemoteWebElement.java:78)
+	at BillingTestCases.TestCases.TC07(TestCases.java:654)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -203,7 +219,7 @@
 			</tr>
 			<tr class="event-row">
 				<td><i class="fa fa-times text-fail"></i></td>
-				<td>5:19:05 pm</td>
+				<td>6:21:36 am</td>
 				<td>
 						Test failed
 				</td>
@@ -213,7 +229,7 @@
 </div>
 <div class="detail-foot">
 	<ul class="attachments">
-			<img class='r-img' onerror='this.style.display="none"' data-featherlight='D:\Automation\Selenium_Java\Billing\test-output\TC25BillingAddTaxRates.png' src='D:\Automation\Selenium_Java\Billing\test-output\TC25BillingAddTaxRates.png'>
+			<img class='r-img' onerror='this.style.display="none"' data-featherlight='D:\Automation\Selenium_Java\Billing\test-output\TC07.png' src='D:\Automation\Selenium_Java\Billing\test-output\TC07.png'>
 	</ul>
 </div>
 					</div>
@@ -258,13 +274,13 @@
 				<li class="test-item">
 					<div class="open-test">
 						<div class="test-detail">
-							<p class="name">java.lang.AssertionError</p>
+							<p class="name">org.openqa.selenium.ElementClickInterceptedException</p>
 							<p class="duration text-sm">1 tests</p>
 						</div>
 					</div>
 					<div class="test-contents d-none">
 						<div class="info">
-							<h4>java.lang.AssertionError</h4>
+							<h4>org.openqa.selenium.ElementClickInterceptedException</h4>
 						</div>
 						<table class='table table-sm mt-4'>
 							<thead>
@@ -281,9 +297,9 @@
 											<i class="fa fa-times text-white"></i>
 										</div>
 									</td>
-									<td>17:18:47 pm</td>
+									<td>06:21:32 am</td>
 									<td class='linked' test-id='1'>
-										TC25BillingAddTaxRates
+										TC07
 									</td>
 								</tr>
 							</tbody>
@@ -380,7 +396,7 @@
 					<div class="media justify-content-between">
 						<div class="card-header">
 							<h6 class="card-title">Start</h6>
-							<h4 class="font-weight-light mt-4">Sep 4, 2022 05:18:36 pm</h4>
+							<h4 class="font-weight-light mt-4">Sep 5, 2022 06:21:18 am</h4>
 							<span class="text-semibold text-success font-size-15">
 						</div>
 						<div class="align-self-end">
@@ -396,7 +412,7 @@
 					<div class="media justify-content-between">
 						<div class="card-header">
 							<h6 class="card-title">Duration</h6>
-							<h4 class="font-weight-light mt-4">0h 0m 29s+706ms</h4>
+							<h4 class="font-weight-light mt-4">0h 0m 18s+465ms</h4>
 							<span class="text-semibold font-size-15">
 						</div>
 						<div class="align-self-end">
@@ -491,7 +507,7 @@
 </script>
 <script>
 	var timeline = {
-	        "TC25BillingAddTaxRates":17.889
+	        "TC07":4.25
 	};
 </script>
                 </div>

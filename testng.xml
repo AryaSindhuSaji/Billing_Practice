@@ -12,7 +12,7 @@
     <classes>
       <class name="BillingTestCases.TestCases">
       <methods>
-      <include name="TC25BillingAddTaxRates"/>
+      <include name="TC07"/>
       </methods>
       </class>
     </classes>
