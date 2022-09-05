@@ -36,6 +36,10 @@ public class purchasePage {
 	WebElement paymentmethodselect;
 	@FindBy(id="submit_purchase_form")
 	WebElement purchasesave;
+	@FindBy(xpath="//input[@class='form-control input-sm']")
+	WebElement purchasesearchfield;
+	@FindBy(xpath="//td[@class='sorting_1']//following::td[1]")
+	WebElement selectedpurchase;
 	public purchasePage(WebDriver driver) {
 		
 		this.driver=driver;
@@ -94,5 +98,15 @@ public class purchasePage {
 	public WebElement purchaseSaveBtn()
 	{
 		return purchasesave;
+	}
+	public WebElement purchaseSearchField()
+	{
+		return purchasesearchfield;
+	}
+	
+	
+	public WebElement selectedPurchaseTocheck()
+	{
+		return selectedpurchase;
 	}
 }

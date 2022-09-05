@@ -25,7 +25,7 @@ public class StockTransferPage {
 	WebElement stocktransfersave;
 	@FindBy(xpath="//input[@class='form-control input-sm']")
 	WebElement stocktransfersearch;
-	@FindBy(xpath="(//tr[@class='odd']//following::td)[1]")
+	@FindBy(xpath="(//td[@class='sorting_1']//following::td)[1]")
 	WebElement selectedstocktarnsferrefe;
 	
 	public StockTransferPage(WebDriver driver) {

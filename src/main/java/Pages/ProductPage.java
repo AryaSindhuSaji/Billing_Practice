@@ -58,6 +58,8 @@ public class ProductPage {
 	WebElement sellingpricegroupsearch;
 	@FindBy(xpath="//td[@class='sorting_1']")
 	WebElement selectedsellingpricegroup;
+	@FindBy(xpath="//section[@class='content-header']//following::h1")
+	WebElement waitforsellinggrouphome;
 	
 	@FindBy(xpath="//i[@class='fa fa-diamond']")
 	WebElement brandoption;
@@ -184,6 +186,10 @@ public class ProductPage {
 	public WebElement selectedsellingGroupTOCheck()
 	{
 		return selectedsellingpricegroup;
+	}
+	public WebElement sellingGroupWaitElement()
+	{
+		return waitforsellinggrouphome;
 	}
 	
 	

@@ -25,8 +25,14 @@ public class SettingsPage {
 	WebElement taxratesave;
 	@FindBy(xpath="//input[@class='form-control input-sm']")
 	WebElement newtaxratesearchfield;
-	@FindBy(xpath="(//td[@class=\"sorting_1\"])[2]")
+	@FindBy(xpath="//table[@id='tax_rates_table']//child::td[1]")
 	WebElement selectedtax;
+	@FindBy(xpath="(//button[@class='btn btn-xs btn-danger delete_tax_rate_button'])[1]")
+	WebElement deletebtntaxrate;
+	@FindBy(xpath="//button[@class='swal-button swal-button--confirm swal-button--danger']")
+	WebElement taxdeleteokbtn;
+	@FindBy(xpath="//td[@class='dataTables_empty']")
+	WebElement taxerrormsgget;
 	
 	
 	@FindBy(xpath="//a[@href='https://qalegend.com/billing/public/printers']")
@@ -47,8 +53,14 @@ public class SettingsPage {
 	WebElement printersave;
 	@FindBy(xpath="//input[@class='form-control input-sm']")
 	WebElement newprintersearch;
-	@FindBy(xpath="//td[@class='sorting_1']")
+	@FindBy(xpath="(//td[@class='sorting_1'])[1]")
 	WebElement selectedprinter;
+	@FindBy(xpath="(//button[@class='btn btn-xs btn-danger delete_printer_button'])[1]")
+	WebElement deletebtnprinter;
+	@FindBy(xpath="//button[@class='swal-button swal-button--confirm swal-button--danger']")
+	WebElement printerdeleteokbtn;
+	@FindBy(xpath="//td[@class='dataTables_empty']")
+	WebElement printererrormsgget;
 	
 	
 	@FindBy(xpath="(//i[@class='fa fa-file']//following::span)[1]")
@@ -104,8 +116,6 @@ public class SettingsPage {
 	WebElement locationsearch;
 	@FindBy(xpath="//td[@class='sorting_1']")
 	WebElement selectedlocation;
-
-	
 	public SettingsPage(WebDriver driver) {
 
 		this.driver=driver;
@@ -146,6 +156,19 @@ public class SettingsPage {
 	public WebElement selectedTax()
 	{
 		return selectedtax;
+	}
+	public WebElement taxRatesDelete()
+	{
+		return deletebtntaxrate;
+	}
+	public WebElement taxRatesDeleteBtnoK()
+	{
+		return taxdeleteokbtn;
+		
+	}
+	public WebElement taxRatesErrorMsg()
+	{
+		return taxerrormsgget;
 	}
 	
 	
@@ -192,6 +215,20 @@ public class SettingsPage {
 	{
 		return selectedprinter;
 	}
+	public WebElement printerDelete()
+	{
+		return deletebtnprinter;
+	}
+	public WebElement printerDeleteBtnoK()
+	{
+		return printerdeleteokbtn;
+		
+	}
+	public WebElement printerErrorMsg()
+	{
+		return printererrormsgget;
+	}
+	
 	
 	
 	//Invoice Settings

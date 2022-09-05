@@ -34,6 +34,12 @@ public class supplierContactAddPage {
 	WebElement supplieredit;
 	@FindBy(xpath="(//td[@class='sorting_1\']//following::td)[3]")
 	WebElement newcontactid;
+	@FindBy(xpath="(//td[@class='sorting_1']//following::td)[3]")
+	WebElement editedmobilenumber;
+	@FindBy(xpath="//button[text()='Update']")
+	WebElement updatebtn;
+	@FindBy(xpath="//section[@class='content-header']")
+	WebElement elementforwait;
 	
 	
 	public supplierContactAddPage(WebDriver driver) {
@@ -92,6 +98,18 @@ public class supplierContactAddPage {
 	public WebElement supplierEditBtn()
 	{
 		return supplieredit;
+	}
+	public WebElement supplierEditedMobile()
+	{
+		return editedmobilenumber;
+	}
+	public WebElement supplierUpdateBtn()
+	{
+		return updatebtn;
+	}
+	public WebElement elementForWait()
+	{
+		return elementforwait;
 	}
 
 }

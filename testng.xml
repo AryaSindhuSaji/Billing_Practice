@@ -12,7 +12,7 @@
     <classes>
       <class name="BillingTestCases.TestCases">
       <methods>
-      <include name="TC07"/>
+      <include name="TC27BillingAddInvoiceSettings"/>
       </methods>
       </class>
     </classes>

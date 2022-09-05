@@ -2,6 +2,7 @@ package BillingTestCases;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.time.Duration;
 import java.util.Properties;
 import java.util.Random;
 
@@ -10,7 +11,9 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.devtools.v101.page.Page;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Wait;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -18,6 +21,7 @@ import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import AutomationCore.BaseClass;
+import Constants.Constant;
 import Pages.AddRole;
 import Pages.DeleteRolePage;
 import Pages.ExpensePage;
@@ -35,6 +39,7 @@ import Pages.salesCommissionAgentPage;
 import Pages.sellPage;
 import Pages.supplierContactAddPage;
 import Pages.CalculatorPage;
+import Utility.ExcelUtility;
 import Utility.PageUtility;
 import Utility.WaitUtility;
 
@@ -89,16 +94,27 @@ public class TestCases extends BaseClass{
 		settings=new SettingsPage(driver);
 	}
 	@Test
-	public void TC01BillingLoginValid()
+	/*public void TC01BillingLoginValid()
 	{
 		login.LoginMethod(prop.getProperty("username"), prop.getProperty("password"));
 		Assert.assertEquals(prop.getProperty("ExpUrl"), driver.getCurrentUrl());
+		
+	}*/
+	public void TC01BillingLoginValid() throws IOException
+	{
+		login.LoginMethod(prop.getProperty("username"), prop.getProperty("password"));
+		
+		//Assert.assertEquals(prop.getProperty("ExpUrl"), driver.getCurrentUrl());
+		System.out.print(ExcelUtility.getString(1,0,Constant.excellfilepath,"Details"));
+		
+		//Assert.assertEquals(driver.getCurrentUrl(),ExcelUtility.getString(1,0,Constant.excellfilepath,"Details"));
 	}
 	@Test
 	public void TC02BillingLogininvalid()
 	{
 		login.LoginMethod(prop.getProperty("username1"), prop.getProperty("password1"));
-		Assert.assertEquals(login.InvalidMsgFetch(), "These credentials do not match our records.");
+		//Assert.assertEquals(login.InvalidMsgFetch(), "These credentials do not match our records.");
+		Assert.assertEquals(login.InvalidMsgFetch(), prop.getProperty("ErrorMsg1"));
 			
 	}
 	@Test
@@ -195,9 +211,9 @@ public class TestCases extends BaseClass{
 		
 	}
 	
-	//pending not able to edit mobile field
+	//After update button click page not navigate to supplier home
 	@Test
-	public void TC08BillingEditAddedSupplierEmail()
+	public void TC08BillingEditAddedSupplierMobile() throws InterruptedException
 	{
 		login.LoginMethod(prop.getProperty("username"), prop.getProperty("password"));
 		suppliercontact.ContactDropDownArrow();
@@ -214,9 +230,16 @@ public class TestCases extends BaseClass{
 		PageUtility.enterText(suppliercontact.supplierSearchField(),NewSuppliername);
 		PageUtility.clickOnElement(suppliercontact.supplierActionBtn());
 		PageUtility.clickOnElement(suppliercontact.supplierEditBtn());
+		PageUtility.clearText(suppliercontact.SupplierMobileField());
 		PageUtility.enterText(suppliercontact.SupplierMobileField(),"1234567898");
+		PageUtility.clickOnElement(suppliercontact.supplierUpdateBtn());
 		
-	}
+		//PageUtility.clearText(suppliercontact.supplierSearchField());
+		PageUtility.navigateToRefresh(driver);
+		PageUtility.enterText(suppliercontact.supplierSearchField(),NewSuppliername);
+		String actualnum = PageUtility.getElementText(suppliercontact.supplierEditedMobile());
+		Assert.assertEquals(actualnum, "1234567898");
+		}
 	
 	@Test
 	public void TC09BillingContactAddCustomer()
@@ -293,36 +316,28 @@ public class TestCases extends BaseClass{
 		String actualvariation=PageUtility.getElementText(variations.CheckAddedVariation());
 		Assert.assertEquals(actualvariation, NewVariationName);
 	}
-	//pending
 	@Test
 	public void TC13BillingDeleteVariations()
 	{
 		login.LoginMethod(prop.getProperty("username"), prop.getProperty("password"));
-		
-		//PageUtility.enterText(variations.VariationSearchField(), prop.getProperty("VariationsName"));
-		
-		
-		//PageUtility.navigateToRefresh(driver);
-		//Assert.assertEquals(product.CheckAddedVariation().isDisplayed(), false);
 		product.ProductOptionClick();
 		variations.VariationsOptionClick();
 		variations.VariationsAddBtnClick();
 		String NewVariationNametodelete=RandomNameCreation("VariationNameDelete");
 		PageUtility.enterText(variations.VariationsNameField(),NewVariationNametodelete);
+		System.out.print(NewVariationNametodelete);
 		PageUtility.enterText(variations.VariationValueField(), prop.getProperty("VariationValue"));
 		variations.VariationsSaveBtnClick();
 		PageUtility.navigateToRefresh(driver);
 		PageUtility.enterText(variations.VariationSearchField(), NewVariationNametodelete);
 		variations.VariationDeleteBtn();
 		variations.DeleteOKBtnClick();
-		//PageUtility.navigateToRefresh(driver);
-		//PageUtility.enterText(variations.VariationSearchField(),NewVariationNametodelete);
 		String errormsg=PageUtility.getElementText(variations.variationerrorMsgFetch());
 		Assert.assertEquals(errormsg, "No matching records found");
 		
 	}
 	
-	//pending not able to click search 
+	
 	@Test
 	public void TC14BillingAddSellingPriceGroup()
 	
@@ -335,16 +350,10 @@ public class TestCases extends BaseClass{
 		PageUtility.enterText(product.SellingPriceGroupTextField(), NewSellingPricegroupName);
 		PageUtility.enterText(product.SellingPriceGroupDescBox(), prop.getProperty("SellingPriceGroupDesc"));
 		product.SellingPriceGroupSaveBtn();
+		PageUtility.navigateToRefresh(driver);
 		PageUtility.enterText(product.sellingPriceGroupSearchField(),NewSellingPricegroupName);
-		//product.sellingPriceGroupSearchField().sendKeys(NewSellingPricegroupName);
-		
-		/*PageUtility.enterText(product.sellingPriceGroupSearchField(),NewSellingPricegroupName);
 		String expsellingpricegroupName=PageUtility.getElementText(product.selectedsellingGroupTOCheck());
-		Assert.assertEquals(expsellingpricegroupName,NewSellingPricegroupName);*/
-		
-		
-		
-		
+		Assert.assertEquals(expsellingpricegroupName,NewSellingPricegroupName);
 		
 	}
 	@Test
@@ -364,7 +373,6 @@ public class TestCases extends BaseClass{
 		Assert.assertEquals(expnewbrandname, NewBrandName);
 		
 	}
-	// after add new id changed not able to fetch added 
 	@Test
 	public void TC16BillingAddStockAdjustment()
 	{
@@ -379,10 +387,9 @@ public class TestCases extends BaseClass{
 		PageUtility.enterText(stock.ProductSearchFieldForStockTransfer(), "ProductName3350");
 		stock.ProductSelectList();
 		PageUtility.clickOnElement(stock.StockTransferSaveBtnClick());
+		PageUtility.navigateToRefresh(driver);
 		PageUtility.enterText(stock.stockTransferSearchField(), NewReferenceNumber);
 		String actualref=PageUtility.getElementText(stock.selectedStockTransferRefnumber());
-		System.out.println("Actual:"+actualref);
-		System.out.println("Expe:"+NewReferenceNumber);
 		Assert.assertEquals(actualref, NewReferenceNumber);
 		
 	}
@@ -449,7 +456,7 @@ public class TestCases extends BaseClass{
 		String text=calc.resultField().getAttribute("value");
 		Assert.assertEquals(text,prop.getProperty("CalculationResult"));
 	}
-	//pending 2000 Box Value fetched
+	
 	@Test
 	public void TC21BillingAddOpeningStock()
 	{
@@ -472,15 +479,9 @@ public class TestCases extends BaseClass{
 		PageUtility.clickOnElement(product.openingStockSaveBtnClick());*/
 		//System.out.print("product:"+ProductName8149);
 		PageUtility.enterText(product.productSearchFieldSelect(), "ProductName8149");
-		//String actualnewproductquantity=PageUtility.getElementText(product.newlyAddedOpeningStock());
-		
-		System.out.print("productquantilty:"+PageUtility.getElementText(product.newlyAddedOpeningStock()));
-		
-		//Assert.assertEquals(actualnewproductquantity, prop.getProperty("OpeningStockQuantilty"));
-		
-		
-		
-		
+		String actualnewproductquantity=PageUtility.getElementText(product.newlyAddedOpeningStock());
+		Assert.assertEquals(actualnewproductquantity, prop.getProperty("ExpectedStockQuantity")+" Box");
+			
 	}
 	@Test
 	public void TC22BillingAddSalesCommissionAgent()
@@ -500,9 +501,9 @@ public class TestCases extends BaseClass{
 		Assert.assertEquals(PageUtility.getElementText(salescommission.selectedSalesCommissionAgent()), NewAgentName);
 
 	}
-	//not able to add reference number
+	
 	@Test
-	public void TC23BillingAddPurchase()
+	public void TC23BillingAddPurchase() throws InterruptedException
 	{
 		login.LoginMethod(prop.getProperty("username"), prop.getProperty("password"));
 		PageUtility.clickOnElement(purchase.purchaseOptionClick());
@@ -516,7 +517,10 @@ public class TestCases extends BaseClass{
 		PageUtility.enterText(suppliercontact.SupplierMobileField(), prop.getProperty("SupplierMobilenumber"));
 		suppliercontact.SupplierSaveBtn();
 		WaitUtility.waitForElementToBeVisible(driver,purchase.selectSupplier());
-		PageUtility.enterText(purchase.referenceNumberField(), "1234456");
+		Thread.sleep(4000);
+		PageUtility.clickOnElement(purchase.referenceNumberField());
+		String NewReferenceNum=RandomNameCreation("NewReference");
+		PageUtility.enterText(purchase.referenceNumberField(),NewReferenceNum);
 		PageUtility.selectDropdownByValue(purchase.purchaseSatatusSelect(), "received");
 		PageUtility.selectDropdownbyText(purchase.businessLocatioSelect(), "DeMoCompany2 (121312)");
 		PageUtility.clickOnElement(purchase.productAddBtn());
@@ -532,6 +536,13 @@ public class TestCases extends BaseClass{
 		PageUtility.enterText(purchase.amountPurchase(), prop.getProperty("AmountForPurchase"));
 		PageUtility.selectDropdownByValue(purchase.payemtMethodSelection(), "cash");
 		PageUtility.clickOnElement(purchase.purchaseSaveBtn());
+		PageUtility.navigateToRefresh(driver);
+		PageUtility.enterText(purchase.purchaseSearchField(), NewReferenceNum);
+		Assert.assertEquals(PageUtility.getElementText(purchase.selectedPurchaseTocheck()), NewReferenceNum);
+		
+		
+		
+		
 		
 	}
 	
@@ -551,10 +562,8 @@ public class TestCases extends BaseClass{
 		PageUtility.selectDropdownByValue(sell.discountTypeFieldSelect(), "fixed");
 		PageUtility.enterText(sell.discountAmountField(), prop.getProperty("DiscountAmount"));
 		PageUtility.clickOnElement(sell.discountStartAtField());
-		
 		PageUtility.clickOnElement(sell.discountSaveBtnClick());
 	}
-	//Assert check
 	@Test
 	public void TC25BillingAddTaxRates()
 	{
@@ -564,7 +573,7 @@ public class TestCases extends BaseClass{
 		PageUtility.clickOnElement(settings.taxRatesAddBtn());
 		String NewTaxName=RandomNameCreation("TaxName");
 		PageUtility.enterText(settings.taxNameField(),NewTaxName);
-		PageUtility.enterText(settings.taxAmountField(), prop.getProperty("TaxAmount"));
+		PageUtility.enterText(settings.taxAmountField(),prop.getProperty("TaxAmount"));
 		PageUtility.clickOnElement(settings.taxRateSaveBtnClick());
 		PageUtility.navigateToRefresh(driver);
 		PageUtility.enterText(settings.taxRatesSearchField(), NewTaxName);
@@ -589,7 +598,6 @@ public class TestCases extends BaseClass{
 		Assert.assertEquals(PageUtility.getElementText(settings.selectedPrinter()), NewPrinterName);
 		
 	}
-	//search one get different
 	@Test
 	public void TC27BillingAddInvoiceSettings() throws InterruptedException
 	{
@@ -602,13 +610,12 @@ public class TestCases extends BaseClass{
 		PageUtility.enterText(settings.invoiceNameField(),NewInvoiceName);
 		PageUtility.enterText(settings.invoiceStartsFrom(), prop.getProperty("InvoiceStartFrom"));
 		PageUtility.clickOnElement(settings.InvoiceSaveBtnClick());
-		//Thread.sleep(2000);
-		WaitUtility.waitForElementToBeVisible(driver, settings.InvoiceSettingsHeading());
+		PageUtility.navigateToRefresh(driver);
 		PageUtility.enterText(settings.invoiceSearchField(), NewInvoiceName);
 		Assert.assertEquals(PageUtility.getElementText(settings.selctedInvoice()), NewInvoiceName);
 		
 	}
-	//not found expected result
+	
 	@Test
 	public void TC28BillingAddBusinessLocation() throws InterruptedException
 	{
@@ -629,32 +636,57 @@ public class TestCases extends BaseClass{
 		PageUtility.selectDropdownByValue(settings.invoiceSchemeSelect(), "8");
 		PageUtility.selectDropdownByValue(settings.invoiceLayoutSelect(), "1");
 		PageUtility.clickOnElement(settings.locationSaveBtn());
-		Thread.sleep(2000);
-		//WaitUtility.waitForElementToBeVisible(driver, settings.locationHomePageForWait());
+		PageUtility.navigateToRefresh(driver);
 		PageUtility.enterText(settings.locationSearchField(), NewLocation);
 		Assert.assertEquals(PageUtility.getElementText(settings.locationSelectedToSearch()), NewLocation);
 	}
 	@Test
-	public void TC29BillingDeleteBusinessLocation()
+	public void TC29BillingDeleteTaxRates()
 	{
 		login.LoginMethod(prop.getProperty("username"), prop.getProperty("password"));
 		PageUtility.clickOnElement(settings.settingsOptionClick());
+		PageUtility.clickOnElement(settings.taxRatesOptionClick());
+		PageUtility.clickOnElement(settings.taxRatesAddBtn());
+		String NewTaxName=RandomNameCreation("TaxName");
+		PageUtility.enterText(settings.taxNameField(),NewTaxName);
+		PageUtility.enterText(settings.taxAmountField(),prop.getProperty("TaxAmount"));
+		PageUtility.clickOnElement(settings.taxRateSaveBtnClick());
+		PageUtility.navigateToRefresh(driver);
+		PageUtility.enterText(settings.taxRatesSearchField(), NewTaxName);
+		PageUtility.clickOnElement(settings.taxRatesDelete());
+		PageUtility.clickOnElement(settings.taxRatesDeleteBtnoK());
+		PageUtility.navigateToRefresh(driver);
+		PageUtility.enterText(settings.taxRatesSearchField(), NewTaxName);
+		String taxerrormsg=PageUtility.getElementText(settings.taxRatesErrorMsg());
+		Assert.assertEquals(taxerrormsg, "No matching records found");
 	}
 	
 	
 	@Test
-	public void TC30BillingPurchaseDelete()
+	public void TC30BillingDeleteReceiptPrinter()
 	{
+		login.LoginMethod(prop.getProperty("username"), prop.getProperty("password"));
+		PageUtility.clickOnElement(settings.settingsOptionClick());
+		PageUtility.clickOnElement(settings.receiptPrinterOptionClick());
+		PageUtility.clickOnElement(settings.addPrinterBtnClick());
+		String NewPrinterName=RandomNameCreation("PrinterName");
+		PageUtility.enterText(settings.printerNameField(), NewPrinterName);
+		PageUtility.selectDropdownByValue(settings.networkTypeSelect(), "windows");
+		PageUtility.selectDropdownByValue(settings.capabilityProfileSelect(),"simple");
+		PageUtility.enterText(settings.charactersPerLineField(), prop.getProperty("CharactersPerLine"));
+		PageUtility.enterText(settings.printerPathField(),prop.getProperty("PrinterPath"));
+		PageUtility.clickOnElement(settings.printerSaveBtn());
+		PageUtility.enterText(settings.newPrinterSearchField(), NewPrinterName);		
+		PageUtility.clickOnElement(settings.printerDelete());
+		PageUtility.clickOnElement(settings.printerDeleteBtnoK());
+		PageUtility.navigateToRefresh(driver);
+		PageUtility.enterText(settings.newPrinterSearchField(), NewPrinterName);
+		String printererrormsg=PageUtility.getElementText(settings.printerErrorMsg());
+		Assert.assertEquals(printererrormsg, "No matching records found");
+		
 		
 	}
-	@Test
-	public void TC07() throws InterruptedException, IOException
-	{
-		driver.navigate().to("https://smallpdf.com/word-to-pdf");
-		driver.findElement(By.xpath("//span[text()='Choose Files']")).click();
-		Thread.sleep(3000);
-		Runtime.getRuntime().exec("D:\\Automation\\Eclipse Workspace\\fileupload.exe");
-	}
+	
 	
 
 	
