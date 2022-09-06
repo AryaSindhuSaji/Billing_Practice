@@ -1,27 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results ignored="29" total="30" passed="1" failed="0" skipped="0">
+<testng-results ignored="30" total="31" passed="1" failed="0" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2022-09-06T00:00:25 IST" name="Suite" finished-at="2022-09-06T00:00:53 IST" duration-ms="28370">
+  <suite started-at="2022-09-07T00:20:54 IST" name="Suite" finished-at="2022-09-07T00:21:28 IST" duration-ms="33801">
     <groups>
     </groups>
-    <test started-at="2022-09-06T00:00:25 IST" name="Test" finished-at="2022-09-06T00:00:53 IST" duration-ms="28370">
+    <test started-at="2022-09-07T00:20:54 IST" name="Test" finished-at="2022-09-07T00:21:28 IST" duration-ms="33801">
       <class name="BillingTestCases.TestCases">
-        <test-method is-config="true" signature="BrowserInvoke(java.lang.String)[pri:0, instance:BillingTestCases.TestCases@59d4cd39]" started-at="2022-09-06T00:00:25 IST" name="BrowserInvoke" finished-at="2022-09-06T00:00:39 IST" duration-ms="13814" status="PASS">
+        <test-method is-config="true" signature="BrowserInvoke(java.lang.String)[pri:0, instance:BillingTestCases.TestCases@4b34fff9]" started-at="2022-09-07T00:20:54 IST" name="BrowserInvoke" finished-at="2022-09-07T00:21:03 IST" duration-ms="9294" status="PASS">
           <params>
             <param index="0">
               <value>
-                <![CDATA[Chrome]]>
+                <![CDATA[Edge]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- BrowserInvoke -->
-        <test-method signature="TC27BillingAddInvoiceSettings()[pri:0, instance:BillingTestCases.TestCases@59d4cd39]" started-at="2022-09-06T00:00:39 IST" name="TC27BillingAddInvoiceSettings" finished-at="2022-09-06T00:00:53 IST" duration-ms="14465" status="PASS">
+        <test-method signature="TC24BillingDeleteUser()[pri:0, instance:BillingTestCases.TestCases@4b34fff9]" started-at="2022-09-07T00:21:03 IST" name="TC24BillingDeleteUser" finished-at="2022-09-07T00:21:27 IST" duration-ms="24178" status="PASS">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- TC27BillingAddInvoiceSettings -->
+        </test-method> <!-- TC24BillingDeleteUser -->
+        <test-method is-config="true" signature="Teardown()[pri:0, instance:BillingTestCases.TestCases@4b34fff9]" started-at="2022-09-07T00:21:27 IST" name="Teardown" finished-at="2022-09-07T00:21:28 IST" duration-ms="285" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- Teardown -->
       </class> <!-- BillingTestCases.TestCases -->
     </test> <!-- Test -->
   </suite> <!-- Suite -->

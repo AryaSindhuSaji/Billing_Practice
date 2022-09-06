@@ -48,17 +48,17 @@ public class supplierContactAddPage {
 	}
 
 
-	public void ContactDropDownArrow()
+	public WebElement ContactDropDownArrow()
 	{
-		contactdrp.click();
+		return contactdrp;
 	}
-	public void SuppierOptionClick()
+	public WebElement SuppierOptionClick()
 	{
-		suppliersoption.click();
+		return suppliersoption;
 	}
-	public void NewSupplierAddBtn()
+	public WebElement NewSupplierAddBtn()
 	{
-		supplieraddbtn.click();
+		return supplieraddbtn;
 	}
 	public WebElement SupplierNameField()
 	{
@@ -76,9 +76,9 @@ public class supplierContactAddPage {
 	{
 		return suppliermobile;
 	}
-	public void SupplierSaveBtn() {
+	public WebElement SupplierSaveBtn() {
 		
-		suppliercontactsavebtn.click();
+		return suppliercontactsavebtn;
 	}
 	public WebElement supplierSearchField()
 	{

@@ -28,18 +28,18 @@ public class BaseClass {
 		if(browsername.equalsIgnoreCase("Chrome"))
 		{
 		
-			System.setProperty("webdriver.chrome.driver", "D:\\Automation\\Selenium_Java\\Billing\\src\\main\\resources\\Drivers\\chromedriver.exe");
+			System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") +"\\src\\main\\resources\\Drivers\\chromedriver.exe");
 			driver = new ChromeDriver();
 			
 		}
 		else if(browsername.equalsIgnoreCase("Firefox"))
 		{
-			System.setProperty("webdriver.gecko.driver", "D:\\Automation\\Selenium_Java\\Billing\\src\\main\\resources\\Drivers\\geckodriver.exe");
+			System.setProperty("webdriver.gecko.driver", System.getProperty("user.dir") +"\\src\\main\\resources\\Drivers\\geckodriver.exe");
 			driver=new FirefoxDriver();
 		}
 		else if(browsername.equalsIgnoreCase("Edge"))
 		{
-			System.setProperty("webdriver.msedge.driver", "D:\\Automation\\Selenium_Java\\Billing\\src\\main\\resources\\Drivers\\msedgedriver.exe");
+			System.setProperty("webdriver.edge.driver", System.getProperty("user.dir") +"\\src\\main\\resources\\Drivers\\msedgedriver.exe");
 			driver=new EdgeDriver();
 		}
 		

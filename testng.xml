@@ -6,13 +6,14 @@
 </listeners>
   <test thread-count="5" name="Test">
   
-  <parameter name="Browser" value="Chrome"></parameter>
+  <parameter name="Browser" value="Edge"></parameter>
 	<!--<groups>
 	</groups>-->
     <classes>
       <class name="BillingTestCases.TestCases">
       <methods>
-      <include name="TC27BillingAddInvoiceSettings"/>
+      <include name="TC24BillingDeleteUser"/>
+     
       </methods>
       </class>
     </classes>

@@ -35,13 +35,13 @@ public class StockTransferPage {
 	}
 
 
-	public void StockTransferOptionClick()
+	public WebElement StockTransferOptionClick()
 	{
-		stocktransferoption.click();
+		return stocktransferoption;
 	}
-	public void AddStocktransferOption()
+	public WebElement AddStocktransferOption()
 	{
-		addstocktransfer.click();
+		return addstocktransfer;
 	}
 	public WebElement ReferenceNumberField()
 	{
@@ -58,9 +58,9 @@ public class StockTransferPage {
 	{
 		return transferlocation;
 	}
-	public void ProductSelectList()
+	public WebElement ProductSelectList()
 	{
-		productselected.click();
+		return productselected;
 	}
 	public WebElement StockTransferSaveBtnClick()
 	{

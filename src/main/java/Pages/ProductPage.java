@@ -83,13 +83,13 @@ public class ProductPage {
 
 
 
-	public void ProductOptionClick()
+	public WebElement ProductOptionClick()
 	{
-		productoption.click();
+		return productoption;
 	}
-	public void AddProductOption()
+	public WebElement AddProductOption()
 	{
-		addproduct.click();
+		return addproduct;
 	}
 	public WebElement ProductNameField()
 	{
@@ -112,9 +112,9 @@ public class ProductPage {
 		
 		return exctax;
 	}
-	public void ProductSaveBtn()
+	public WebElement ProductSaveBtn()
 	{
-		productsavebtn.click();
+		return productsavebtn;
 	}
 	public WebElement productSearchFieldSelect()
 	{
@@ -157,14 +157,14 @@ public class ProductPage {
 	
 	
 	
-	public void SellingPriceGroupOptionClick()
+	public WebElement SellingPriceGroupOptionClick()
 	
 	{
-		sellingpricegroupoption.click();
+		return sellingpricegroupoption;
 	}
-	public void SellingPriceGroupAddBtnClick()
+	public WebElement SellingPriceGroupAddBtnClick()
 	{
-		sellingpricegroupaddbtn.click();
+		return sellingpricegroupaddbtn;
 	}
 	public WebElement SellingPriceGroupTextField()
 	{
@@ -175,9 +175,9 @@ public class ProductPage {
 		
 		return sellingpricergroupdesc;
 	}
-	public void SellingPriceGroupSaveBtn()
+	public WebElement SellingPriceGroupSaveBtn()
 	{
-		sellingpricegroupsave.click();
+		return sellingpricegroupsave;
 	}
 	public WebElement sellingPriceGroupSearchField()
 	{
@@ -196,13 +196,13 @@ public class ProductPage {
 	
 	
 	
-	public void BrandOptionClick()
+	public WebElement BrandOptionClick()
 	{
-		brandoption.click();
+		return brandoption;
 	}
-	public void BrandAddBtn()
+	public WebElement BrandAddBtn()
 	{
-		brandaddbtn.click();
+		return brandaddbtn;
 	}
 	public WebElement BrandNameTextField()
 	{
@@ -212,9 +212,9 @@ public class ProductPage {
 	{
 		return branddesc;
 	}
-	public void BrandSaveBtnClick()
+	public WebElement BrandSaveBtnClick()
 	{
-		brandsavebtn.click();
+		return brandsavebtn;
 	}
 
 	public WebElement BrandSearch()

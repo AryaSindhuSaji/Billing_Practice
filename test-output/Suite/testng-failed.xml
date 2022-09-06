@@ -5,12 +5,13 @@
     <listener class-name="BillingTestCases.Listeners"/>
   </listeners>
   <test thread-count="5" name="Test(failed)">
-    <parameter name="Browser" value="Chrome"/>
+    <parameter name="Browser" value="Edge"/>
     <classes>
       <class name="BillingTestCases.TestCases">
         <methods>
           <include name="BrowserInvoke"/>
-          <include name="TC30BillingDeleteReceiptPrinter"/>
+          <include name="Teardown"/>
+          <include name="TC24BillingAddDiscount"/>
         </methods>
       </class> <!-- BillingTestCases.TestCases -->
     </classes>

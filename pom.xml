@@ -3,6 +3,10 @@
   <groupId>Automation</groupId>
   <artifactId>Billing</artifactId>
   <version>0.0.1-SNAPSHOT</version>
+   <properties>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+  </properties>
   <dependencies>
   <dependency>
     <groupId>org.seleniumhq.selenium</groupId>
@@ -25,6 +29,7 @@
 <groupId>org.apache.poi</groupId>
 <artifactId>poi-ooxml</artifactId>
 <version>4.1.2</version>
+  
 </dependency>
 <dependency>
 <groupId>com.aventstack</groupId>

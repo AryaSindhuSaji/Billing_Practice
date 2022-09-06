@@ -31,13 +31,13 @@ public class customerContactAddPage {
 		this.driver=driver;
 		PageFactory.initElements(driver, this);
 	}
-	public void CutomersOptionDrp()
+	public WebElement CutomersOptionDrp()
 	{
-		customersoption.click();
+		return customersoption;
 	}
-	public void CustomerContactAddBtn()
+	public WebElement CustomerContactAddBtn()
 	{
-		customercontactaddbtn.click();
+		return customercontactaddbtn;
 	}
 	public WebElement CustomerNameField()
 	{
@@ -51,9 +51,9 @@ public class customerContactAddPage {
 	{
 		return customermobile;
 	}
-	public void CustomercontactSaveBtn() {
+	public WebElement CustomercontactSaveBtn() {
 		
-		customercontactsavebtn.click();
+		return customercontactsavebtn;
 	}
 	public WebElement customerContactSearchfieldClick()
 	{

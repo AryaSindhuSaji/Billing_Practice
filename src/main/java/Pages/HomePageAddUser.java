@@ -37,6 +37,12 @@ public class HomePageAddUser {
 	WebElement addeduser;
 	@FindBy(xpath="//input[@class='form-control input-sm']")
 	WebElement newusersearch;
+	@FindBy(xpath="//button[@class='btn btn-xs btn-danger delete_user_button']")
+	WebElement userdelete;
+	@FindBy(xpath="//button[@class='swal-button swal-button--confirm swal-button--danger']")
+	WebElement userdeleteok;
+	@FindBy(xpath="//td[@class='dataTables_empty']")
+	WebElement userdeletederror;
 	
 	public HomePageAddUser(WebDriver driver) {
 		
@@ -45,17 +51,17 @@ public class HomePageAddUser {
 	}
 
 	
-	public void UserManagementDropdown() {
+	public WebElement UserManagementDropdown() {
 		
-		usermanagedrop.click();
+		return usermanagedrop;
 		
 	}
-	public void UserOption() {
-		useroption.click();
+	public WebElement UserOption() {
+		return useroption;
 	}
 
-	public void AddUser() {
-		adduserbtn.click();
+	public WebElement AddUser() {
+		return adduserbtn;
 	}
 	public WebElement PrefixTextField()
 	{
@@ -90,9 +96,9 @@ public class HomePageAddUser {
 	{
 		return commission;
 	}
-	public void UserSaveBtnClick()
+	public WebElement UserSaveBtnClick()
 	{
-		usersubmitbtn.click();
+		return usersubmitbtn;
 	}
 	public WebElement AddedUserCheck()
 	{
@@ -101,6 +107,18 @@ public class HomePageAddUser {
 	public WebElement newUserSearch()
 	{
 	return newusersearch;
+	}
+	public WebElement userDeleteBtn()
+	{
+		return userdelete;
+	}
+	public WebElement userDeleteOkBtn()
+	{
+		return userdeleteok;
+	}
+	public WebElement userDeleteErrorMsg()
+	{
+		return userdeletederror;
 	}
 }
 

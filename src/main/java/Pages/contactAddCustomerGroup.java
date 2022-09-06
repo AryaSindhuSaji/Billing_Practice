@@ -31,13 +31,13 @@ public class contactAddCustomerGroup {
 	}
 
 	
-	public void CustomerGroupOption()
+	public WebElement CustomerGroupOption()
 	{
-		customergroupoption.click();
+		return customergroupoption;
 	}
-	public void CustomerGroupAddBtn()
+	public WebElement CustomerGroupAddBtn()
 	{
-		customergroupaddbtn.click();
+		return customergroupaddbtn;
 	}
 	public WebElement CustomerGroupNameField()
 	{
@@ -47,9 +47,9 @@ public class contactAddCustomerGroup {
 	{
 		return calcpercentage;
 	}
-	public void CustomerGroupSaveBtn()
+	public WebElement CustomerGroupSaveBtn()
 	{
-		customergroupsavebtn.click();
+		return customergroupsavebtn;
 	}
 	public WebElement customerGroupSerachField()
 	{

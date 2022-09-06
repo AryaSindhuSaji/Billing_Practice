@@ -42,29 +42,40 @@ public class AddRole {
 	}
 
 
-	public void RoleOptionBtnClick()
+	public WebElement RoleOptionBtnClick()
 	{
-		roleoption.click();
+		return roleoption;
 	}
-	public void AddNewRoleBtn()
+	public WebElement AddNewRoleBtn()
 	{
-		addrolebtn.click();
+		return addrolebtn;
 	}
 	public WebElement RoleNameTextField()
 	{
 		return rolenemfield;
 	}
-	public void PermissionCheckBox()
+	public WebElement PermissionCheckBoxuser()
 	{
-		userpermission.click();
-		rolepermission.click();
-		supplierpermission.click();
-		customerpermission.click();
+		return userpermission;
 		
 	}
-	public void roleSaveBtn()
+	public WebElement PermissionCheckBoxrole()
 	{
-		rolsave.click();
+		return rolepermission;
+	}
+	public WebElement PermissionCheckBoxSupplier()
+	{
+		return supplierpermission;	
+	}
+	public WebElement PermissionCheckBoxCustomer()
+	{
+		
+		return customerpermission;	
+		
+	}
+	public WebElement roleSaveBtn()
+	{
+		return rolsave;
 	}
 	public WebElement RoleSearchField()
 	

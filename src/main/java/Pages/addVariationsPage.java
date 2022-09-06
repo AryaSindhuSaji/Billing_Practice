@@ -39,13 +39,13 @@ public class addVariationsPage {
 
 
 
-	public void VariationsOptionClick()
+	public WebElement VariationsOptionClick()
 	{
-		variationsoption.click();
+		return variationsoption;
 	}
-	public void VariationsAddBtnClick()
+	public WebElement VariationsAddBtnClick()
 	{
-		addvariationsbtn.click();
+		return addvariationsbtn;
 	}
 	public WebElement VariationsNameField()
 	{
@@ -55,9 +55,9 @@ public class addVariationsPage {
 	{
 		return variationvalue;
 	}
-	public void VariationsSaveBtnClick()
+	public WebElement VariationsSaveBtnClick()
 	{
-		variationsavebtn.click();
+		return variationsavebtn;
 	}
 	public WebElement CheckAddedVariation()
 	{
@@ -67,13 +67,13 @@ public class addVariationsPage {
 	{
 		return variationsearchfield;
 	}
-	public void VariationDeleteBtn()
+	public WebElement VariationDeleteBtn()
 	{
-		variationdelete.click();
+		return variationdelete;
 	}
-	public void DeleteOKBtnClick()
+	public WebElement DeleteOKBtnClick()
 	{
-		deleteokbtn.click();
+		return deleteokbtn;
 	}
 	public WebElement variationerrorMsgFetch()
 	{

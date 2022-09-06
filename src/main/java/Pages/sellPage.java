@@ -28,6 +28,8 @@ public class sellPage {
 	WebElement discountamount;
 	@FindBy(id="starts_at")
 	WebElement startsat;
+	@FindBy(id="ends_at")
+	WebElement endat;
 	@FindBy(xpath="//button[@class='btn btn-primary']")
 	WebElement discountsavebtn;
 	
@@ -79,6 +81,10 @@ public class sellPage {
 	public WebElement discountStartAtField()
 	{
 		return startsat;
+	}
+	public WebElement discountEndsAtField()
+	{
+		return endat;
 	}
 	public WebElement discountSaveBtnClick()
 	{

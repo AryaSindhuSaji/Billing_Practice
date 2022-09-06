@@ -39,9 +39,11 @@ import Pages.salesCommissionAgentPage;
 import Pages.sellPage;
 import Pages.supplierContactAddPage;
 import Pages.CalculatorPage;
+import Utility.DateUtility;
 import Utility.ExcelUtility;
 import Utility.PageUtility;
 import Utility.WaitUtility;
+import freemarker.template.utility.DateUtil;
 
 public class TestCases extends BaseClass{
 
@@ -70,7 +72,7 @@ public class TestCases extends BaseClass{
 	public void BrowserInvoke(String Browser) throws IOException
 	{
 		prop=new Properties();
-		fs=new FileInputStream("D:\\Automation\\Selenium_Java\\Billing\\src\\main\\resources\\TestData\\TestData.properties");
+		fs=new FileInputStream(System.getProperty("user.dir")+"\\src\\main\\resources\\TestData\\TestData.properties");
 		prop.load(fs);
 		driver=BrowserInitialization(Browser);
 		driver.manage().window().maximize();
@@ -94,26 +96,16 @@ public class TestCases extends BaseClass{
 		settings=new SettingsPage(driver);
 	}
 	@Test
-	/*public void TC01BillingLoginValid()
-	{
-		login.LoginMethod(prop.getProperty("username"), prop.getProperty("password"));
-		Assert.assertEquals(prop.getProperty("ExpUrl"), driver.getCurrentUrl());
-		
-	}*/
 	public void TC01BillingLoginValid() throws IOException
 	{
-		login.LoginMethod(prop.getProperty("username"), prop.getProperty("password"));
+		login.LoginMethod(ExcelUtility.getString(1,0,Constant.excellfilepath,"users"), ExcelUtility.getNumeric(1,1,Constant.excellfilepath,"users"));
+		Assert.assertEquals(prop.getProperty("ExpUrl"), driver.getCurrentUrl());
 		
-		//Assert.assertEquals(prop.getProperty("ExpUrl"), driver.getCurrentUrl());
-		System.out.print(ExcelUtility.getString(1,0,Constant.excellfilepath,"Details"));
-		
-		//Assert.assertEquals(driver.getCurrentUrl(),ExcelUtility.getString(1,0,Constant.excellfilepath,"Details"));
 	}
 	@Test
 	public void TC02BillingLogininvalid()
 	{
 		login.LoginMethod(prop.getProperty("username1"), prop.getProperty("password1"));
-		//Assert.assertEquals(login.InvalidMsgFetch(), "These credentials do not match our records.");
 		Assert.assertEquals(login.InvalidMsgFetch(), prop.getProperty("ErrorMsg1"));
 			
 	}
@@ -133,9 +125,9 @@ public class TestCases extends BaseClass{
 	{
 		
 		login.LoginMethod(prop.getProperty("username"), prop.getProperty("password"));
-		home.UserManagementDropdown();
-		home.UserOption();
-		home.AddUser();
+		PageUtility.clickOnElement(home.UserManagementDropdown());
+		PageUtility.clickOnElement(home.UserOption());
+		PageUtility.clickOnElement(home.AddUser());
 		PageUtility.enterText(home.PrefixTextField(),prop.getProperty("Prefix"));
 		String NewUser=RandomNameCreation("NewUsername");
 		PageUtility.enterText(home.FirstnameField(),NewUser);
@@ -145,22 +137,26 @@ public class TestCases extends BaseClass{
 		PageUtility.enterText(home.PasswordTextField(), prop.getProperty("Password"));
 		PageUtility.enterText(home.ConfirmPasswordTextField(), prop.getProperty("ConfirmPassword"));
 		PageUtility.enterText(home.CommissionField(), prop.getProperty("Commission"));
-		home.UserSaveBtnClick();
+		PageUtility.clickOnElement(home.UserSaveBtnClick());
 		PageUtility.enterText(home.newUserSearch(), NewUser);
-		Assert.assertEquals(home.AddedUserCheck().getText(), NewUser);
+		String expresult=prop.getProperty("Prefix")+" "+NewUser+" "+prop.getProperty("Lastname");
+		Assert.assertEquals(PageUtility.getElementText(home.AddedUserCheck()),expresult );
 		
 	}
 	@Test
 	public void TC05BillingAddRole() 
 	{
 		login.LoginMethod(prop.getProperty("username"), prop.getProperty("password"));
-		home.UserManagementDropdown();
-		role.RoleOptionBtnClick();
-		role.AddNewRoleBtn();
+		PageUtility.clickOnElement(home.UserManagementDropdown());
+		PageUtility.clickOnElement(role.RoleOptionBtnClick());
+		PageUtility.clickOnElement(role.AddNewRoleBtn());
 		String NewRole=RandomNameCreation("NewRole");
 		PageUtility.enterText(role.RoleNameTextField(),NewRole);
-		role.PermissionCheckBox();
-		role.roleSaveBtn();
+		PageUtility.clickOnElement(role.PermissionCheckBoxuser());
+		PageUtility.clickOnElement(role.PermissionCheckBoxrole());
+		PageUtility.clickOnElement(role.PermissionCheckBoxSupplier());
+		PageUtility.clickOnElement(role.PermissionCheckBoxCustomer());
+		PageUtility.clickOnElement(role.roleSaveBtn());
 		PageUtility.enterText(role.RoleSearchField(), NewRole);
 		Assert.assertEquals(role.AddedRoleSearch().getText(), NewRole);
 		
@@ -169,21 +165,23 @@ public class TestCases extends BaseClass{
 	public void TC06BillingDeleteRole() 
 	{
 		login.LoginMethod(prop.getProperty("username"), prop.getProperty("password"));
-		home.UserManagementDropdown();
-		role.RoleOptionBtnClick();
-		role.AddNewRoleBtn();
+		PageUtility.clickOnElement(home.UserManagementDropdown());
+		PageUtility.clickOnElement(role.RoleOptionBtnClick());
+		PageUtility.clickOnElement(role.AddNewRoleBtn());
 		String NewRole=RandomNameCreation("NewRole");
 		PageUtility.enterText(role.RoleNameTextField(),NewRole);
-		role.PermissionCheckBox();
-		role.roleSaveBtn();
+		PageUtility.clickOnElement(role.PermissionCheckBoxuser());
+		PageUtility.clickOnElement(role.PermissionCheckBoxrole());
+		PageUtility.clickOnElement(role.PermissionCheckBoxSupplier());
+		PageUtility.clickOnElement(role.PermissionCheckBoxCustomer());
+		PageUtility.clickOnElement(role.roleSaveBtn());
 		PageUtility.enterText(role.RoleSearchField(), NewRole);
 		PageUtility.clickOnElement(deleterole.deleteRole());
 		PageUtility.clickOnElement(deleterole.deleteConfirmBtn());
 		PageUtility.navigateToRefresh(driver);
 		PageUtility.enterText(role.RoleSearchField(), NewRole);
 		String errormsg=deleterole.errorMsgFetch().getText();
-		System.out.print(errormsg);
-		Assert.assertEquals(errormsg, "No matching records found");
+		Assert.assertEquals(errormsg, prop.getProperty("Expectederrormsg"));
 		
 		
 	}
@@ -192,16 +190,16 @@ public class TestCases extends BaseClass{
 	{
 		
 		login.LoginMethod(prop.getProperty("username"), prop.getProperty("password"));
-		suppliercontact.ContactDropDownArrow();
-		suppliercontact.SuppierOptionClick();
-		suppliercontact.NewSupplierAddBtn();
+		PageUtility.clickOnElement(suppliercontact.ContactDropDownArrow());
+		PageUtility.clickOnElement(suppliercontact.SuppierOptionClick());
+		PageUtility.clickOnElement(suppliercontact.NewSupplierAddBtn());
 		String NewSuppliername=RandomNameCreation("NewSupplier");
 		PageUtility.enterText(suppliercontact.SupplierNameField(),NewSuppliername);
 		PageUtility.enterText(suppliercontact.SupplierBusinessNameField(), prop.getProperty("SupplierBusinessName"));
 		String NewSupplierContactid=RandomNameCreation("NewSupplierContactid");
 		PageUtility.enterText(suppliercontact.SupplierContactIdField(),NewSupplierContactid);
 		PageUtility.enterText(suppliercontact.SupplierMobileField(), prop.getProperty("SupplierMobilenumber"));
-		suppliercontact.SupplierSaveBtn();
+		PageUtility.clickOnElement(suppliercontact.SupplierSaveBtn());
 		PageUtility.navigateToRefresh(driver);
 		WaitUtility.waitForElementToBeVisible(driver, suppliercontact.supplierSearchField());
 		PageUtility.enterText(suppliercontact.supplierSearchField(), NewSupplierContactid);
@@ -210,50 +208,47 @@ public class TestCases extends BaseClass{
 		
 		
 	}
-	
-	//After update button click page not navigate to supplier home
+	//Check
 	@Test
 	public void TC08BillingEditAddedSupplierMobile() throws InterruptedException
 	{
 		login.LoginMethod(prop.getProperty("username"), prop.getProperty("password"));
-		suppliercontact.ContactDropDownArrow();
-		suppliercontact.SuppierOptionClick();
-		suppliercontact.NewSupplierAddBtn();
+		PageUtility.clickOnElement(suppliercontact.ContactDropDownArrow());
+		PageUtility.clickOnElement(suppliercontact.SuppierOptionClick());
+		PageUtility.clickOnElement(suppliercontact.NewSupplierAddBtn());
 		String NewSuppliername=RandomNameCreation("NewSupplier");
 		PageUtility.enterText(suppliercontact.SupplierNameField(),NewSuppliername);
 		PageUtility.enterText(suppliercontact.SupplierBusinessNameField(), prop.getProperty("SupplierBusinessName"));
 		String NewSupplierContactid=RandomNameCreation("NewSupplierContactid");
 		PageUtility.enterText(suppliercontact.SupplierContactIdField(),NewSupplierContactid);
 		PageUtility.enterText(suppliercontact.SupplierMobileField(), prop.getProperty("SupplierMobilenumber"));
-		suppliercontact.SupplierSaveBtn();
+		PageUtility.clickOnElement(suppliercontact.SupplierSaveBtn());
 		PageUtility.navigateToRefresh(driver);
 		PageUtility.enterText(suppliercontact.supplierSearchField(),NewSuppliername);
 		PageUtility.clickOnElement(suppliercontact.supplierActionBtn());
 		PageUtility.clickOnElement(suppliercontact.supplierEditBtn());
 		PageUtility.clearText(suppliercontact.SupplierMobileField());
-		PageUtility.enterText(suppliercontact.SupplierMobileField(),"1234567898");
+		PageUtility.enterText(suppliercontact.SupplierMobileField(),prop.getProperty("UpdatedSupplierMobilenumber"));
 		PageUtility.clickOnElement(suppliercontact.supplierUpdateBtn());
-		
-		//PageUtility.clearText(suppliercontact.supplierSearchField());
 		PageUtility.navigateToRefresh(driver);
 		PageUtility.enterText(suppliercontact.supplierSearchField(),NewSuppliername);
 		String actualnum = PageUtility.getElementText(suppliercontact.supplierEditedMobile());
-		Assert.assertEquals(actualnum, "1234567898");
+		Assert.assertEquals(actualnum, prop.getProperty("UpdatedSupplierMobilenumber"));
 		}
 	
 	@Test
 	public void TC09BillingContactAddCustomer()
 	{
 		login.LoginMethod(prop.getProperty("username"), prop.getProperty("password"));
-		suppliercontact.ContactDropDownArrow();
-		customercontact.CutomersOptionDrp();
-		customercontact.CustomerContactAddBtn();
+		PageUtility.clickOnElement(suppliercontact.ContactDropDownArrow());
+		PageUtility.clickOnElement(customercontact.CutomersOptionDrp());
+		PageUtility.clickOnElement(customercontact.CustomerContactAddBtn());;
 		String NewCustomerName=RandomNameCreation("NewCustomer");
 		PageUtility.enterText(customercontact.CustomerNameField(),NewCustomerName);
 		String NewCustomerID=RandomNameCreation("NewCustomerId");
 		PageUtility.enterText(customercontact.CustomerContactIdField(),NewCustomerID);
 		PageUtility.enterText(customercontact.CustomerMobileField(), prop.getProperty("CustomerMobilenumber"));
-		customercontact.CustomercontactSaveBtn();
+		PageUtility.clickOnElement(customercontact.CustomercontactSaveBtn());
 		PageUtility.navigateToRefresh(driver);
 		PageUtility.enterText(customercontact.customerContactSearchfieldClick(), NewCustomerName);
 		String NewSelectedcustomer=customercontact.selectedCustomer().getText();
@@ -265,13 +260,13 @@ public class TestCases extends BaseClass{
 	public void TC10BillingContactAddCustomerGroup()
 	{
 		login.LoginMethod(prop.getProperty("username"), prop.getProperty("password"));
-		suppliercontact.ContactDropDownArrow();
-		contact.CustomerGroupOption();
-		contact.CustomerGroupAddBtn();
+		PageUtility.clickOnElement(suppliercontact.ContactDropDownArrow());
+		PageUtility.clickOnElement(contact.CustomerGroupOption());
+		PageUtility.clickOnElement(contact.CustomerGroupAddBtn());
 		String NewCustomerGroupName=RandomNameCreation("NewCustomerGroup");
 		PageUtility.enterText(contact.CustomerGroupNameField(),NewCustomerGroupName);
 		PageUtility.enterText(contact.CalculationPercentageField(), prop.getProperty("CalculationPer"));
-		contact.CustomerGroupSaveBtn();
+		PageUtility.clickOnElement(contact.CustomerGroupSaveBtn());
 		PageUtility.navigateToRefresh(driver);
 		PageUtility.enterText(contact.customerGroupSerachField(), NewCustomerGroupName);
 		String Selectedgroup=contact.selectedCustomerGroup().getText();
@@ -283,15 +278,15 @@ public class TestCases extends BaseClass{
 	public void TC11BillingAddProduct()
 	{
 		login.LoginMethod(prop.getProperty("username"), prop.getProperty("password"));
-		product.ProductOptionClick();
-		product.AddProductOption();
+		PageUtility.clickOnElement(product.ProductOptionClick());
+		PageUtility.clickOnElement(product.AddProductOption());
 		String NewProductName=RandomNameCreation("ProductName");
 		PageUtility.enterText(product.ProductNameField(),NewProductName);
 		PageUtility.selectDropdownbyText(product.brandNameSelectTag(), "VKC");
 		PageUtility.selectDropdownbyText(product.unitSelectTag(),"Box");
 		PageUtility.enterText(product.AlertQuantityTextField(), prop.getProperty("AlertQuantity"));
 		PageUtility.enterText(product.EXCTaxField(), prop.getProperty("ExcTaxValue"));
-		product.ProductSaveBtn();
+		PageUtility.clickOnElement(product.ProductSaveBtn());
 		PageUtility.navigateToRefresh(driver);
 		PageUtility.enterText(product.productSearchFieldSelect(), NewProductName);
 		String NewSelectedProduct=product.selectedProductGet().getText();
@@ -304,13 +299,13 @@ public class TestCases extends BaseClass{
 	public void TC12BillingAddVariations()
 	{
 		login.LoginMethod(prop.getProperty("username"), prop.getProperty("password"));
-		product.ProductOptionClick();
-		variations.VariationsOptionClick();
-		variations.VariationsAddBtnClick();
+		PageUtility.clickOnElement(product.ProductOptionClick());
+		PageUtility.clickOnElement(variations.VariationsOptionClick());
+		PageUtility.clickOnElement(variations.VariationsAddBtnClick());
 		String NewVariationName=RandomNameCreation("VariationName");
 		PageUtility.enterText(variations.VariationsNameField(),NewVariationName);
 		PageUtility.enterText(variations.VariationValueField(), prop.getProperty("VariationValue"));
-		variations.VariationsSaveBtnClick();
+		PageUtility.clickOnElement(variations.VariationsSaveBtnClick());
 		PageUtility.navigateToRefresh(driver);
 		PageUtility.enterText(variations.VariationSearchField(), NewVariationName);
 		String actualvariation=PageUtility.getElementText(variations.CheckAddedVariation());
@@ -320,20 +315,19 @@ public class TestCases extends BaseClass{
 	public void TC13BillingDeleteVariations()
 	{
 		login.LoginMethod(prop.getProperty("username"), prop.getProperty("password"));
-		product.ProductOptionClick();
-		variations.VariationsOptionClick();
-		variations.VariationsAddBtnClick();
+		PageUtility.clickOnElement(product.ProductOptionClick());
+		PageUtility.clickOnElement(variations.VariationsOptionClick());
+		PageUtility.clickOnElement(variations.VariationsAddBtnClick());
 		String NewVariationNametodelete=RandomNameCreation("VariationNameDelete");
 		PageUtility.enterText(variations.VariationsNameField(),NewVariationNametodelete);
-		System.out.print(NewVariationNametodelete);
 		PageUtility.enterText(variations.VariationValueField(), prop.getProperty("VariationValue"));
-		variations.VariationsSaveBtnClick();
+		PageUtility.clickOnElement(variations.VariationsSaveBtnClick());
 		PageUtility.navigateToRefresh(driver);
 		PageUtility.enterText(variations.VariationSearchField(), NewVariationNametodelete);
-		variations.VariationDeleteBtn();
-		variations.DeleteOKBtnClick();
+		PageUtility.clickOnElement(variations.VariationDeleteBtn());
+		PageUtility.clickOnElement(variations.DeleteOKBtnClick());
 		String errormsg=PageUtility.getElementText(variations.variationerrorMsgFetch());
-		Assert.assertEquals(errormsg, "No matching records found");
+		Assert.assertEquals(errormsg, prop.getProperty("Expectederrormsg"));
 		
 	}
 	
@@ -343,13 +337,13 @@ public class TestCases extends BaseClass{
 	
 	{
 		login.LoginMethod(prop.getProperty("username"), prop.getProperty("password"));
-		product.ProductOptionClick();
-		product.SellingPriceGroupOptionClick();
-		product.SellingPriceGroupAddBtnClick();
+		PageUtility.clickOnElement(product.ProductOptionClick());
+		PageUtility.clickOnElement(product.SellingPriceGroupOptionClick());
+		PageUtility.clickOnElement(product.SellingPriceGroupAddBtnClick());
 		String NewSellingPricegroupName=RandomNameCreation("SellingPriceGroup");
 		PageUtility.enterText(product.SellingPriceGroupTextField(), NewSellingPricegroupName);
 		PageUtility.enterText(product.SellingPriceGroupDescBox(), prop.getProperty("SellingPriceGroupDesc"));
-		product.SellingPriceGroupSaveBtn();
+		PageUtility.clickOnElement(product.SellingPriceGroupSaveBtn());
 		PageUtility.navigateToRefresh(driver);
 		PageUtility.enterText(product.sellingPriceGroupSearchField(),NewSellingPricegroupName);
 		String expsellingpricegroupName=PageUtility.getElementText(product.selectedsellingGroupTOCheck());
@@ -360,13 +354,13 @@ public class TestCases extends BaseClass{
 	public void TC15BillingAddBrand()
 	{
 		login.LoginMethod(prop.getProperty("username"), prop.getProperty("password"));
-		product.ProductOptionClick();
-		product.BrandOptionClick();
-		product.BrandAddBtn();
+		PageUtility.clickOnElement(product.ProductOptionClick());
+		PageUtility.clickOnElement(product.BrandOptionClick());
+		PageUtility.clickOnElement(product.BrandAddBtn());
 		String NewBrandName=RandomNameCreation("NewBrand");
 		PageUtility.enterText(product.BrandNameTextField(),NewBrandName);
 		PageUtility.enterText(product.BarndDescField(), prop.getProperty("BrandDesc"));
-		product.BrandSaveBtnClick();
+		PageUtility.clickOnElement(product.BrandSaveBtnClick());
 		PageUtility.navigateToRefresh(driver);
 		PageUtility.enterText(product.BrandSearch(),NewBrandName);
 		String expnewbrandname=PageUtility.getElementText(product.SelectedBrandTOCheck());
@@ -378,14 +372,14 @@ public class TestCases extends BaseClass{
 	{
 
 		login.LoginMethod(prop.getProperty("username"), prop.getProperty("password"));
-		stock.StockTransferOptionClick();
-		stock.AddStocktransferOption();
+		PageUtility.clickOnElement(stock.StockTransferOptionClick());
+		PageUtility.clickOnElement(stock.AddStocktransferOption());
 		String NewReferenceNumber=RandomNameCreation("Refer");
 		PageUtility.enterText(stock.ReferenceNumberField(),NewReferenceNumber);
 		PageUtility.selectDropdownbyText(stock.StartingLocationSelection(), "Demo Company (BL0001)");
 		PageUtility.selectDropdownbyText(stock.TransferLoactionSelection(), "DeMoCompany2 (121312)");
 		PageUtility.enterText(stock.ProductSearchFieldForStockTransfer(), "ProductName3350");
-		stock.ProductSelectList();
+		PageUtility.clickOnElement(stock.ProductSelectList());
 		PageUtility.clickOnElement(stock.StockTransferSaveBtnClick());
 		PageUtility.navigateToRefresh(driver);
 		PageUtility.enterText(stock.stockTransferSearchField(), NewReferenceNumber);
@@ -461,24 +455,9 @@ public class TestCases extends BaseClass{
 	public void TC21BillingAddOpeningStock()
 	{
 		login.LoginMethod(prop.getProperty("username"), prop.getProperty("password"));
-		product.ProductOptionClick();
+		PageUtility.clickOnElement(product.ProductOptionClick());
 		PageUtility.clickOnElement(product.listProduct());
-		/*product.AddProductOption();
-		String NewProductName=RandomNameCreation("ProductName");
-		PageUtility.enterText(product.ProductNameField(),NewProductName);
-		PageUtility.selectDropdownbyText(product.brandNameSelectTag(), "VKC");
-		PageUtility.selectDropdownbyText(product.unitSelectTag(),"Box");
-		PageUtility.enterText(product.AlertQuantityTextField(), prop.getProperty("AlertQuantity"));
-		PageUtility.enterText(product.EXCTaxField(), prop.getProperty("ExcTaxValue"));
-		product.ProductSaveBtn();
-		PageUtility.navigateToRefresh(driver);
-		PageUtility.enterText(product.productSearchFieldSelect(), NewProductName);
-		PageUtility.clickOnElement(product.actionBtnClickOnProduct());
-		PageUtility.clickOnElement(product.openingStockOptionClick());
-		PageUtility.enterText(product.quantityField(),prop.getProperty("OpeningStockQuantilty") );
-		PageUtility.clickOnElement(product.openingStockSaveBtnClick());*/
-		//System.out.print("product:"+ProductName8149);
-		PageUtility.enterText(product.productSearchFieldSelect(), "ProductName8149");
+		PageUtility.enterText(product.productSearchFieldSelect(), prop.getProperty("ExpectedProduct"));
 		String actualnewproductquantity=PageUtility.getElementText(product.newlyAddedOpeningStock());
 		Assert.assertEquals(actualnewproductquantity, prop.getProperty("ExpectedStockQuantity")+" Box");
 			
@@ -487,7 +466,7 @@ public class TestCases extends BaseClass{
 	public void TC22BillingAddSalesCommissionAgent()
 	{
 		login.LoginMethod(prop.getProperty("username"), prop.getProperty("password"));
-		home.UserManagementDropdown();
+		PageUtility.clickOnElement(home.UserManagementDropdown());
 		PageUtility.clickOnElement(salescommission.salesCommissionAgentOptionClick());
 		PageUtility.clickOnElement(salescommission.salesCommissionAddbtnClick());
 		String NewAgentName=RandomNameCreation("AgentName");
@@ -515,7 +494,7 @@ public class TestCases extends BaseClass{
 		String NewSupplierContactid=RandomNameCreation("NewSupplierContactid");
 		PageUtility.enterText(suppliercontact.SupplierContactIdField(),NewSupplierContactid);
 		PageUtility.enterText(suppliercontact.SupplierMobileField(), prop.getProperty("SupplierMobilenumber"));
-		suppliercontact.SupplierSaveBtn();
+		PageUtility.clickOnElement(suppliercontact.SupplierSaveBtn());
 		WaitUtility.waitForElementToBeVisible(driver,purchase.selectSupplier());
 		Thread.sleep(4000);
 		PageUtility.clickOnElement(purchase.referenceNumberField());
@@ -538,31 +517,34 @@ public class TestCases extends BaseClass{
 		PageUtility.clickOnElement(purchase.purchaseSaveBtn());
 		PageUtility.navigateToRefresh(driver);
 		PageUtility.enterText(purchase.purchaseSearchField(), NewReferenceNum);
-		Assert.assertEquals(PageUtility.getElementText(purchase.selectedPurchaseTocheck()), NewReferenceNum);
-		
-		
-		
-		
-		
+		Assert.assertEquals(PageUtility.getElementText(purchase.selectedPurchaseTocheck()), NewReferenceNum);	
 	}
 	
-	//not able to set date
 	@Test
-	public void TC24BillingAddDiscount()
+	public void TC24BillingDeleteUser() 
 	{
 		login.LoginMethod(prop.getProperty("username"), prop.getProperty("password"));
-		PageUtility.clickOnElement(sell.sellOptionClick());
-		PageUtility.clickOnElement(sell.discountOption());
-		PageUtility.clickOnElement(sell.discountAddBtn());
-		String NewDiscountName=RandomNameCreation("DiscountName");
-		PageUtility.enterText(sell.discountNameField(),NewDiscountName);
-		PageUtility.selectDropdownByValue(sell.discountBrandField(), "93");
-		PageUtility.selectDropdownByValue(sell.discountCategoryField(), "205");
-		PageUtility.selectDropdownByValue(sell.discountLocationSelectField(), "3");
-		PageUtility.selectDropdownByValue(sell.discountTypeFieldSelect(), "fixed");
-		PageUtility.enterText(sell.discountAmountField(), prop.getProperty("DiscountAmount"));
-		PageUtility.clickOnElement(sell.discountStartAtField());
-		PageUtility.clickOnElement(sell.discountSaveBtnClick());
+		PageUtility.clickOnElement(home.UserManagementDropdown());
+		PageUtility.clickOnElement(home.UserOption());
+		PageUtility.clickOnElement(home.AddUser());
+		PageUtility.enterText(home.PrefixTextField(),prop.getProperty("Prefix"));
+		String NewUser=RandomNameCreation("NewUsername");
+		PageUtility.enterText(home.FirstnameField(),NewUser);
+		PageUtility.enterText(home.LastNameField(), prop.getProperty("Lastname"));
+		PageUtility.enterText(home.EmailField(), RandomNameCreation("demoemail")+"@gmail.com");
+		PageUtility.selectDropdownbyText(home.RoleSelection(),"Specialist");
+		PageUtility.enterText(home.PasswordTextField(), prop.getProperty("Password"));
+		PageUtility.enterText(home.ConfirmPasswordTextField(), prop.getProperty("ConfirmPassword"));
+		PageUtility.enterText(home.CommissionField(), prop.getProperty("Commission"));
+		PageUtility.clickOnElement(home.UserSaveBtnClick());
+		PageUtility.enterText(home.newUserSearch(), NewUser);
+		PageUtility.clickOnElement(home.userDeleteBtn());
+		PageUtility.clickOnElement(home.userDeleteOkBtn());
+		PageUtility.navigateToRefresh(driver);
+		PageUtility.enterText(home.newUserSearch(), NewUser);
+		String usererrormsg=PageUtility.getElementText(home.userDeleteErrorMsg());
+		Assert.assertEquals(usererrormsg, prop.get("Expectederrormsg"));
+		
 	}
 	@Test
 	public void TC25BillingAddTaxRates()
@@ -658,7 +640,7 @@ public class TestCases extends BaseClass{
 		PageUtility.navigateToRefresh(driver);
 		PageUtility.enterText(settings.taxRatesSearchField(), NewTaxName);
 		String taxerrormsg=PageUtility.getElementText(settings.taxRatesErrorMsg());
-		Assert.assertEquals(taxerrormsg, "No matching records found");
+		Assert.assertEquals(taxerrormsg, prop.get("Expectederrormsg"));
 	}
 	
 	
@@ -682,7 +664,7 @@ public class TestCases extends BaseClass{
 		PageUtility.navigateToRefresh(driver);
 		PageUtility.enterText(settings.newPrinterSearchField(), NewPrinterName);
 		String printererrormsg=PageUtility.getElementText(settings.printerErrorMsg());
-		Assert.assertEquals(printererrormsg, "No matching records found");
+		Assert.assertEquals(printererrormsg, prop.get("Expectederrormsg"));
 		
 		
 	}
@@ -694,9 +676,9 @@ public class TestCases extends BaseClass{
 	
 	
 	
-	/*@AfterMethod
+	@AfterMethod
 	public void Teardown()
 	{
 		driver.quit();
-	}*/
+	}
 }
