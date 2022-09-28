@@ -5,13 +5,17 @@
     <listener class-name="BillingTestCases.Listeners"/>
   </listeners>
   <test thread-count="5" name="Test(failed)">
-    <parameter name="Browser" value="Edge"/>
+    <parameter name="Browser" value="Chrome"/>
+    <groups>
+      <run>
+        <include name="Regression"/>
+      </run>
+    </groups>
     <classes>
       <class name="BillingTestCases.TestCases">
         <methods>
           <include name="BrowserInvoke"/>
-          <include name="Teardown"/>
-          <include name="TC24BillingAddDiscount"/>
+          <include name="TC02BillingLogininvalid"/>
         </methods>
       </class> <!-- BillingTestCases.TestCases -->
     </classes>

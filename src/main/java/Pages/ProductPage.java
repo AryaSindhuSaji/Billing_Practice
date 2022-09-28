@@ -22,6 +22,8 @@ public class ProductPage {
 	WebElement unitselect;	
 	@FindBy(id="alert_quantity")
 	WebElement alertquantitytext;
+	@FindBy(xpath="//input[@accept='image/*']")
+	WebElement uploadimage;
 	@FindBy(id="single_dpp")
 	WebElement exctax;
 	@FindBy(xpath="//button[@class='btn btn-primary submit_product_form']")
@@ -106,6 +108,10 @@ public class ProductPage {
 	public WebElement AlertQuantityTextField()
 	{
 		return alertquantitytext;
+	}
+	public WebElement ImageUpload()
+	{
+		return uploadimage;
 	}
 	public WebElement EXCTaxField()
 	{

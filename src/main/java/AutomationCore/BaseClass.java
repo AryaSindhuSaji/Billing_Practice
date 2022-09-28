@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.time.Duration;
 import java.util.Properties;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
@@ -43,7 +44,7 @@ public class BaseClass {
 			driver=new EdgeDriver();
 		}
 		
-		driver.manage().timeouts().implicitlyWait(5,TimeUnit.SECONDS);
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
 		return driver;
 		
 		}

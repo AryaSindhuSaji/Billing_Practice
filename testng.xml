@@ -2,20 +2,19 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
 <suite name="Suite">
 <listeners>
-<listener class-name="BillingTestCases.Listeners"></listener>
+	<listener class-name="BillingTestCases.Listeners"></listener>
 </listeners>
-  <test thread-count="5" name="Test">
-  
-  <parameter name="Browser" value="Edge"></parameter>
-	<!--<groups>
-	</groups>-->
-    <classes>
-      <class name="BillingTestCases.TestCases">
-      <methods>
-      <include name="TC24BillingDeleteUser"/>
-     
-      </methods>
+<test thread-count="5" name="Test">
+ <parameter name="Browser" value="Chrome"></parameter>
+<groups>
+<run>
+		<include name="Regression"></include>
+	</run>
+</groups>
+ <classes>
+      <class name="BillingTestCases.TestCasesTest">
+    	
       </class>
-    </classes>
-  </test> <!-- Test -->
+ </classes>
+ </test> <!-- Test -->
 </suite> <!-- Suite -->
